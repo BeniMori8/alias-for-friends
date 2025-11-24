@@ -1,0 +1,25 @@
+.benias-board-logo-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benias-board-logo-bg {
+    background-color: rgba(160, 0, 0, 0.3);
+    padding: 2% 5%;
+    border-radius: 50%;
+    transform: rotate(-5deg);
+    backdrop-filter: blur(2px);
+}
+
+.benias-board-logo-text {
+    color: white;
+    font-weight: 900;
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-family: sans-serif;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.05em;
+}

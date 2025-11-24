@@ -1,0 +1,45 @@
+.benias-board-container {
+    width: 100%;
+    height: 100vh;
+    /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f3f5;
+    /* gray.1 */
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Prevent scrolling */
+}
+
+.benias-board-aspect-wrapper {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* If the screen is too tall/narrow, constrain by width (default). 
+   If too wide/short, constrain by height to fit viewport. */
+@media (min-aspect-ratio: 16/9) {
+    .benias-board-aspect-wrapper {
+        height: 100%;
+        width: auto;
+    }
+}
+
+.benias-board-surface {
+    width: 100%;
+    height: 100%;
+    background-color: #c92a2a;
+    /* red.7 */
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
