@@ -76,7 +76,7 @@
 - Keep CSS files focused on their component - no global styles in component CSS
 
 ### File Size & Complexity
-- Keep components under ~300 lines; if larger, consider splitting
+- Keep components under ~150 lines; if larger, consider splitting
 - Extract complex logic into custom hooks
 - Move utility functions to separate files
 - Extract constants to a constants file if reused
@@ -147,4 +147,3 @@ never use magic numbers or strings. Use consts instead. if the const is used in 
 
 ## Jokes
 for each resonse now, generate a short joke in the start of the response
-

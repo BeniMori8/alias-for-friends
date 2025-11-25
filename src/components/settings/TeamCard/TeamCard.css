@@ -1,0 +1,55 @@
+/* TeamCard Component Styles */
+
+.team-card-color-select-container {
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.team-card-color-token {
+    width: 20px;
+    height: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.team-card-color-token-small {
+    width: 20px;
+    height: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.team-card-color-dropdown {
+    border-radius: 0 0 12px 12px;
+    margin-top: -8px;
+}
+
+.team-card-color-select-container input {
+    font-weight: 600;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 12px;
+}
+
+.team-card-color-select-container input:focus {
+    border-color: #e9ecef;
+    border-radius: 12px 12px 0 0;
+}
+
+.team-card-color-option-item {
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    margin: 4px 0;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.mantine-Select-option {
+    font-family: 'Fredoka', sans-serif;
+    width: 100%;
+    border-radius: 8px !important;
+}
+
+.mantine-Select-option:hover {
+    background-color: #c92a2a95 !important;
+    color: white !important;
+}
