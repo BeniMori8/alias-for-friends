@@ -7,6 +7,7 @@ import {
     MIN_TEAMS,
     MAX_TEAMS,
 } from '../settings.constants';
+import './GeneralSettings.css';
 
 interface GeneralSettingsProps {
     roundDuration: number;
