@@ -1,4 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&display=swap');
+
 .settings-screen-container {
-    padding: 2rem;
+    width: 100%;
     min-height: 100vh;
+    background-color: #c92a2a;
+    position: relative;
+    overflow-x: hidden;
+    padding: 2rem 0;
+}
+
+/* Decorative circles matching HomeScreen */
+.settings-screen-container::before,
+.settings-screen-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.settings-screen-container::before {
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    top: 50px;
+    right: -100px;
+    animation-delay: 0.5s;
+}
+
+.settings-screen-container::after {
+    width: 250px;
+    height: 250px;
+    background-color: #ffd700;
+    bottom: 100px;
+    left: -80px;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.settings-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Header */
+.settings-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.settings-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    text-shadow:
+        3px 3px 0px rgba(0, 0, 0, 0.3),
+        -2px -2px 0px rgba(255, 255, 255, 0.1);
+    margin: 0;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.settings-subtitle {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin-top: 0.5rem;
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards */
+.settings-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+    transition: transform 0.3s ease;
+}
+
+.settings-card:hover {
+    transform: translateY(-2px);
+}
+
+.settings-section-title {
+    font-family: 'Fredoka', sans-serif;
+    color: #c92a2a;
+    margin-bottom: 1rem;
+}
+
+.settings-label {
+    font-family: 'Outfit', sans-serif;
+    color: #495057;
+}
+
+/* Number Inputs */
+.settings-number-input input {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    border: 3px solid #dee2e6;
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.settings-number-input input:focus {
+    border-color: #ffd700;
+}
+
+/* Team Cards */
+.team-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 1.25rem;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    border-color: #ffd700;
+    transform: translateX(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.color-picker-container {
+    flex-shrink: 0;
+}
+
+.color-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: #6c757d;
+    text-align: center;
+}
+
+.color-swatch {
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+
+.color-swatch:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch.selected {
+    border-color: white;
+    box-shadow: 0 0 0 3px #c92a2a;
+    transform: scale(1.1);
+}
+
+.team-name-input {
+    flex: 1;
+}
+
+.team-name-input input {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+.team-name-input input:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Continue Button */
+.settings-continue-button {
+    margin-top: 1rem;
+    padding: 1rem 2.5rem;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #c92a2a !important;
+    border: 4px solid white;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        0 0 0 6px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: none;
+    align-self: center;
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out 0.6s backwards, pulse 2s ease-in-out 2s infinite;
+}
+
+.settings-continue-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 0 0 8px rgba(255, 215, 0, 0.5);
+    background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+.settings-continue-button:active {
+    transform: translateY(-2px) scale(1);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 6px rgba(255, 215, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+}
+
+/* Decorations */
+.settings-decorations {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    animation: fadeInUp 0.6s ease-out 0.8s backwards;
+}
+
+.decoration-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    animation: iconFloat 2s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.decoration-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.decoration-icon:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.decoration-icon:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.decoration-icon:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(5deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .settings-screen-container {
+        padding: 1rem 0;
+    }
+
+    .settings-card {
+        padding: 1.5rem;
+    }
+
+    .team-card {
+        padding: 1rem;
+    }
+
+    .color-picker-container {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+
+    .team-card>div {
+        flex-direction: column;
+    }
+
+    .settings-continue-button {
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        padding: 1.2rem 2.5rem;
+    }
+
+    .decoration-icon {
+        font-size: 2rem;
+    }
+
+    .settings-decorations {
+        gap: 1.5rem;
+    }
 }

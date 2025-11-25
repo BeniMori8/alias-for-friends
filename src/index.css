@@ -11,6 +11,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* RTL support for Hebrew */
+  direction: rtl;
+}
+
+/* Right-align text for Hebrew */
+* {
+  text-align: right;
 }
 
 a {
