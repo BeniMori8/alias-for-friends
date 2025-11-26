@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { BeniasBoard } from './components/beniasBoard/BeniasBoard';
+import { GameBoardScreen } from './components/BeniasBoard/GameBoardScreen';
 import { HomeScreen } from './components/home/HomeScreen';
 import { SettingsScreen } from './components/settings/SettingsScreen';
 
@@ -11,7 +11,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/settings" element={<SettingsScreen />} />
-          <Route path="/board" element={<BeniasBoard />} />
+          <Route path="/board" element={<GameBoardScreen />} />
         </Routes>
       </BrowserRouter>
     </MantineProvider>

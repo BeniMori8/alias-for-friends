@@ -1,0 +1,126 @@
+/* Summary View Styles */
+.card-round-summary-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-height: 60vh;
+    /* Reduced from 70vh */
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: auto;
+}
+
+.summary-scroll-area {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.summary-list {
+    width: 100%;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    /* Reduced padding */
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: all 0.2s ease;
+}
+
+.summary-row:hover {
+    background: #f8f9fa;
+}
+
+.summary-row.success {
+    background: #e6fcf5;
+    border-color: #20c997;
+}
+
+.summary-row.fail {
+    background: #fff5f5;
+    border-color: #ff8787;
+}
+
+.summary-word {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    /* Reduced from 1.2rem */
+    font-weight: 500;
+    color: #333;
+    flex: 1;
+}
+
+.summary-buttons {
+    flex-shrink: 0;
+}
+
+.summary-toggle-btn {
+    width: 32px;
+    /* Reduced from 40px */
+    height: 32px;
+    /* Reduced from 40px */
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    opacity: 0.5;
+}
+
+.summary-toggle-btn .button-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.summary-toggle-btn.success {
+    color: #40c057;
+    border-color: #51cf66;
+}
+
+.summary-toggle-btn.success.active {
+    background: linear-gradient(135deg, #40C057 0%, #51cf66 100%);
+    color: white;
+    border-color: #40c057;
+    opacity: 1;
+    box-shadow: 0 3px 8px rgba(64, 192, 87, 0.3);
+}
+
+.summary-toggle-btn.fail {
+    color: #fa5252;
+    border-color: #ff6b6b;
+}
+
+.summary-toggle-btn.fail.active {
+    background: linear-gradient(135deg, #FA5252 0%, #ff6b6b 100%);
+    color: white;
+    border-color: #fa5252;
+    opacity: 1;
+    box-shadow: 0 3px 8px rgba(250, 82, 82, 0.3);
+}
+
+.summary-toggle-btn:not(.active):hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.summary-toggle-btn.active:hover {
+    transform: translateY(-2px);
+}
+
+.full-width {
+    width: auto;
+    min-width: 200px;
+    margin: 1rem auto 0;
+    display: flex;
+}

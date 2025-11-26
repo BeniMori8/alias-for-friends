@@ -1,0 +1,44 @@
+.game-board-screen {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.board-controls {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.open-cards-button {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #c92a2a;
+    border: 3px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.open-cards-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.open-cards-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .board-controls {
+        top: 0.5rem;
+    }
+
+    .open-cards-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}

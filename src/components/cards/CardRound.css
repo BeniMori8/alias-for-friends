@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&display=swap');
+
+/* Overlay */
+.card-round-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(201, 42, 42, 0.85) 0%, rgba(139, 29, 29, 0.9) 100%);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.card-round-container {
+    width: 100%;
+    max-width: 340px;
+    /* Reduced from 400px */
+}
+
+/* Header */
+.card-round-header {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-round-title {
+    font-family: 'Fredoka', sans-serif;
+    color: white;
+    font-size: 2rem;
+    /* Reduced from 2.5rem */
+    font-weight: 700;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.timer-container.paused {
+    transform: rotate(90deg);
+}
+
+.timer-text {
+    font-family: 'Fredoka', sans-serif;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.timer-text.urgent {
+    color: #ffc9c9;
+    animation: pulseText 0.5s infinite alternate;
+}
+
+@keyframes pulseText {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Score Display - Redesigned */
+.card-round-score {
+    background: linear-gradient(135deg, #fff9db 0%, #ffd700 50%, #ffed4e 100%);
+    padding: 0.5rem 1.75rem;
+    border-radius: 25px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px solid white;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        0 0 0 6px rgba(255, 215, 0, 0.3);
+    position: relative;
+}
+
+.score-label {
+    font-family: 'Outfit', sans-serif;
+    color: #c92a2a;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.1rem;
+}
+
+.score-value {
+    font-family: 'Fredoka', sans-serif;
+    color: #c92a2a;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    /* Reduced from 2rem-2.75rem */
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(201, 42, 42, 0.2);
+}
+
+/* Main Card */
+.card-round-main-card {
+    background: white;
+    border-radius: 20px;
+    /* Reduced radius */
+    padding: 1.25rem 1rem;
+    /* Reduced padding */
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    width: 100%;
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: -1rem;
+
+}
+
+.card-round-main-card.animating {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* Watermark */
+.card-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.watermark-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(4rem, 10vw, 6rem);
+    /* Reduced max size */
+    font-weight: 700;
+    color: #c92a2a;
+    opacity: 0.05;
+    user-select: none;
+    white-space: nowrap;
+}
+
+/* Words List */
+.words-list {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 1rem;
+}
+
+.word-row {
+    padding: 0.4rem 0.5rem;
+    /* Reduced padding */
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+
+.word-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 700;
+    color: #868e96;
+    min-width: 1.5rem;
+    flex-shrink: 0;
+}
+
+.word-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: #212529;
+    direction: rtl;
+    text-align: right;
+    flex: 1;
+}
+
+/* Action Buttons Inside Card */
+.action-buttons-inside {
+    position: relative;
+    z-index: 2;
+    padding-top: 0.5rem;
+    border-top: 2px solid #e9ecef;
+}
+
+.action-button-compact {
+    padding: 0.6rem 1rem;
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 700;
+    border-radius: 12px;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+.action-button-compact:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action-button-compact .button-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.action-button-compact .button-label {
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
+.action-button-compact.success {
+    background: linear-gradient(135deg, #40C057 0%, #51cf66 100%);
+    color: white;
+}
+
+.action-button-compact.success:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(64, 192, 87, 0.3);
+}
+
+.action-button-compact.fail {
+    background: linear-gradient(135deg, #FA5252 0%, #ff6b6b 100%);
+    color: white;
+}
+
+.action-button-compact.fail:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 82, 82, 0.3);
+}
+
+.action-button-compact.close {
+    background: linear-gradient(135deg, #228BE6 0%, #339af0 100%);
+    color: white;
+}
+
+.action-button-compact.close:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 139, 230, 0.3);
+}
+
+.action-button-compact:active:not(:disabled) {
+    transform: translateY(0px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-round-main-card {
+        padding: 1.25rem 1rem;
+    }
+
+    .word-row {
+        padding: 0.4rem 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .word-number {
+        font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+        min-width: 1.25rem;
+    }
+
+    .word-text {
+        font-size: clamp(0.85rem, 2vw, 1rem);
+    }
+
+    .action-button-compact {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .action-button-compact .button-icon {
+        font-size: 1rem;
+    }
+
+    .action-button-compact .button-label {
+        font-size: 0.75rem;
+    }
+
+    .watermark-text {
+        font-size: clamp(4rem, 10vw, 7rem);
+    }
+}
+
+@media (max-height: 700px) {
+    .card-round-overlay {
+        padding: 0.5rem;
+    }
+
+    .card-round-title {
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
+
+    .card-round-score {
+        padding: 0.4rem 1rem;
+    }
+
+    .score-value {
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
+
+    .card-round-main-card {
+        padding: 1rem 0.85rem;
+    }
+
+    .word-row {
+        padding: 0.35rem 0.45rem;
+    }
+
+    .word-number {
+        font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+    }
+
+    .word-text {
+        font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    }
+
+    .words-list {
+        margin-bottom: 0.75rem;
+    }
+
+    .action-buttons-inside {
+        padding-top: 0.4rem;
+    }
+}
