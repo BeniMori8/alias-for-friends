@@ -4,8 +4,13 @@ import { BoardPath } from './BoardPath/BoardPath';
 import { BoardCenterLogo } from './BoardCenterLogo/BoardCenterLogo';
 import { PlayerTokens } from './PlayerTokens/PlayerTokens';
 import { START_POSITION } from './PathUtils';
+import type { TeamSettings } from '../settings/settings.types';
 
-export const BeniasBoard: React.FC = () => {
+interface BeniasBoardProps {
+    teams?: TeamSettings[];
+}
+
+export const BeniasBoard: React.FC<BeniasBoardProps> = ({ teams }) => {
     // Use the exact start position from our path logic
     const startPosition = {
         left: `${START_POSITION.x}%`,
@@ -16,7 +21,7 @@ export const BeniasBoard: React.FC = () => {
         <BoardContainer>
             <BoardCenterLogo />
             <BoardPath />
-            <PlayerTokens startPosition={startPosition} />
+            <PlayerTokens startPosition={startPosition} teams={teams} />
         </BoardContainer>
     );
 };
