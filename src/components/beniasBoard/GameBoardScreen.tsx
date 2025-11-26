@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { Button, Stack } from '@mantine/core';
+import { useLocation } from 'react-router-dom';
+import { BeniasBoard } from './BeniasBoard';
+import { CardRound } from '../cards/CardRound';
+import { BENIAS_CARDS } from '../../consts/BeniasCards';
+import './GameBoardScreen.css';
+
+export const GameBoardScreen: React.FC = () => {
+    const [showCardRound, setShowCardRound] = useState(false);
+    const location = useLocation();
+
+    const roundDurationSecondsFromState =
+        (location.state as { roundDurationSeconds?: number } | undefined)
+            ?.roundDurationSeconds;
+
+    const roundDurationSeconds = roundDurationSecondsFromState ?? 90;
+
+    // TODO: This button is temporary - in the future, only the active team
+    // will be able to open the card deck during their turn
+    const handleOpenCards = () => {
+        setShowCardRound(true);
+    };
+
+    const handleCloseCards = () => {
+        setShowCardRound(false);
+    };
+
+    return (
+        <div className="game-board-screen">
+            <Stack gap="md" className="board-controls">
+                {/* Temporary button for opening card round */}
+                <Button
+                    size="lg"
+                    onClick={handleOpenCards}
+                    className="open-cards-button"
+                    disabled={showCardRound}
+                >
+                    🃏 פתח כרטיס מילים
+                </Button>
+            </Stack>
+
+            <BeniasBoard />
+
+            {/* Card Round Modal/Overlay */}
+            {showCardRound && (
+                <CardRound
+                    cards={BENIAS_CARDS}
+                    roundDurationSeconds={roundDurationSeconds}
+                    onClose={handleCloseCards}
+                />
+            )}
+        </div>
+    );
+};

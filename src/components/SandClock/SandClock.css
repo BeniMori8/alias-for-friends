@@ -1,0 +1,60 @@
+.sand-clock-container {
+    position: relative;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.sand-clock-container:hover {
+    transform: scale(1.05);
+}
+
+.sand-clock-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.glass-frame {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+.sand-top,
+.sand-bottom {
+    transition: fill 0.5s ease;
+}
+
+.sand-stream {
+    animation: flowSand 0.5s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes flowSand {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -6;
+    }
+}
+
+/* Shake animation when time is running out (last 10 seconds) */
+.sand-clock-container.urgent {
+    animation: shakeClock 0.5s ease-in-out infinite;
+}
+
+@keyframes shakeClock {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-2deg);
+    }
+
+    75% {
+        transform: rotate(2deg);
+    }
+}

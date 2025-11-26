@@ -86,7 +86,11 @@ export const SettingsScreen: React.FC = () => {
         };
 
         console.log('Game Settings:', gameSettings);
-        navigate('/board');
+        navigate('/board', {
+            state: {
+                roundDurationSeconds: roundDuration,
+            },
+        });
     };
 
     return (
