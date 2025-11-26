@@ -89,6 +89,7 @@ export const SettingsScreen: React.FC = () => {
         navigate('/board', {
             state: {
                 roundDurationSeconds: roundDuration,
+                teams: validatedTeams,
             },
         });
     };

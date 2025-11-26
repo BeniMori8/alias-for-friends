@@ -1,16 +1,55 @@
 .benias-board-container {
     width: 100%;
     height: 100vh;
-    /* Full viewport height */
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f1f3f5;
-    /* gray.1 */
+    background-color: #7d1212;
+    position: relative;
+    overflow: hidden;
     padding: 1rem;
     box-sizing: border-box;
-    overflow: hidden;
-    /* Prevent scrolling */
+}
+
+/* Decorative circles matching Settings/Home */
+.benias-board-container::before,
+.benias-board-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.benias-board-container::before {
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    top: 50px;
+    right: -100px;
+    animation-delay: 0.5s;
+}
+
+.benias-board-container::after {
+    width: 250px;
+    height: 250px;
+    background-color: #ffd700;
+    bottom: 100px;
+    left: -80px;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+
+    50% {
+        transform: translateY(-30px) scale(1.05);
+    }
 }
 
 .benias-board-aspect-wrapper {
@@ -22,6 +61,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 /* If the screen is too tall/narrow, constrain by width (default). 
@@ -41,5 +81,6 @@
     border-radius: 2rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 4px solid white;
 }
