@@ -1,4 +1,4 @@
-export const ALIAS_CARDS = [
+export const BENIAS_CARDS = [
   [
     "טוסט גבינה",
     "כרובית",
