@@ -29,10 +29,11 @@ import './CardRound.css';
 export interface CardRoundProps {
     cards: readonly string[][];
     roundDurationSeconds: number;
+    onRoundEnd: (score: number) => void;
     onClose?: () => void;
 }
 
-export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSeconds, onClose }) => {
+export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSeconds, onRoundEnd, onClose }) => {
     // Card navigation state
     const [currentCardIndex, setCurrentCardIndex] = useState(() =>
         Math.floor(Math.random() * cards.length)
@@ -81,6 +82,11 @@ export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSecond
         });
     };
 
+    const handleRoundComplete = () => {
+        onRoundEnd(totalScore);
+        if (onClose) onClose();
+    };
+
     // Render summary view
     if (view === CARD_ROUND_VIEW.SUMMARY) {
         return (
@@ -89,7 +95,7 @@ export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSecond
                 totalScore={totalScore}
                 cards={cards}
                 onToggleItem={handleToggleHistoryItem}
-                onClose={onClose}
+                onClose={handleRoundComplete}
             />
         );
     }

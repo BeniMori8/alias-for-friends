@@ -1,0 +1,31 @@
+.team-bar-container {
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.team-bar-group {
+    flex-wrap: nowrap;
+    padding: 5px;
+}
+
+.team-card {
+    min-width: 120px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.team-card.active {
+    transform: translateY(-5px);
+    border-width: 2px;
+}
+
+.team-token-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}

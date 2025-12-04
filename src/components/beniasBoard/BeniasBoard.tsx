@@ -11,17 +11,11 @@ interface BeniasBoardProps {
 }
 
 export const BeniasBoard: React.FC<BeniasBoardProps> = ({ teams }) => {
-    // Use the exact start position from our path logic
-    const startPosition = {
-        left: `${START_POSITION.x}%`,
-        top: `${START_POSITION.y}%`
-    };
-
     return (
         <BoardContainer>
             <BoardCenterLogo />
             <BoardPath />
-            <PlayerTokens startPosition={startPosition} teams={teams} />
+            <PlayerTokens teams={teams} />
         </BoardContainer>
     );
 };
