@@ -3,7 +3,6 @@ import { BoardContainer } from './BoardContainer/BoardContainer';
 import { BoardPath } from './BoardPath/BoardPath';
 import { BoardCenterLogo } from './BoardCenterLogo/BoardCenterLogo';
 import { PlayerTokens } from './PlayerTokens/PlayerTokens';
-import { START_POSITION } from './PathUtils';
 import type { TeamSettings } from '../settings/settings.types';
 
 interface BeniasBoardProps {

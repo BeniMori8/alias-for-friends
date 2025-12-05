@@ -31,9 +31,16 @@ export interface CardRoundProps {
     roundDurationSeconds: number;
     onRoundEnd: (score: number) => void;
     onClose?: () => void;
+    teamPosition?: number;
 }
 
-export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSeconds, onRoundEnd, onClose }) => {
+export const CardRound: React.FC<CardRoundProps> = ({
+    cards,
+    roundDurationSeconds,
+    onRoundEnd,
+    onClose,
+    teamPosition = 0
+}) => {
     // Card navigation state
     const [currentCardIndex, setCurrentCardIndex] = useState(() =>
         Math.floor(Math.random() * cards.length)
@@ -48,6 +55,9 @@ export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSecond
     const { remainingSeconds, isTimeUp, isPaused, isUrgent, handleTogglePause } = useRoundTimer(roundDurationSeconds);
 
     const currentCard = cards[currentCardIndex];
+
+    // Calculate which word index should be highlighted (1-8 maps to array index 0-7)
+    const highlightedWordIndex = teamPosition % 8;
 
     // Calculate total score from history
     const totalScore = roundHistory.reduce((acc, item) => {
@@ -96,6 +106,7 @@ export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSecond
                 cards={cards}
                 onToggleItem={handleToggleHistoryItem}
                 onClose={handleRoundComplete}
+                highlightedWordIndex={highlightedWordIndex}
             />
         );
     }
@@ -140,7 +151,10 @@ export const CardRound: React.FC<CardRoundProps> = ({ cards, roundDurationSecond
 
                             <Stack gap="xs" className="words-list">
                                 {currentCard.map((word, index) => (
-                                    <div key={index} className="word-row">
+                                    <div
+                                        key={index}
+                                        className={`word-row ${index === highlightedWordIndex ? 'word-row--highlighted' : ''}`}
+                                    >
                                         <Text className="word-number">{index + 1}.</Text>
                                         <Text className="word-text">{word}</Text>
                                     </div>

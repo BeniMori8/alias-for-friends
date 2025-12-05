@@ -8,14 +8,16 @@
 .team-card-color-token {
     width: 20px;
     height: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .team-card-color-token-small {
     width: 20px;
     height: 20px;
-    border-radius: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
