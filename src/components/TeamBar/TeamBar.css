@@ -1,0 +1,91 @@
+.team-bar-container {
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 0;
+    overflow-x: auto;
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.team-bar-group {
+    flex-wrap: nowrap;
+    padding: 8px;
+}
+
+.team-bar-card {
+    min-width: 140px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    border-radius: 16px;
+    background: white;
+    border: 2px solid #c92a2a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+}
+
+.team-bar-card--active {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    background: #c92a2a;
+    border: 2px solid white;
+}
+
+.team-bar-card--clickable {
+    cursor: pointer;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.team-bar-card--clickable:hover {
+    transform: translateY(-12px) scale(1.08);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 0 30px var(--team-color, #c92a2a);
+}
+
+.team-bar-card--clickable:active {
+    transform: translateY(-6px) scale(1.04);
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.35),
+            0 0 15px var(--team-color, #c92a2a);
+    }
+
+    50% {
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.35),
+            0 0 30px var(--team-color, #c92a2a),
+            0 0 40px var(--team-color, #c92a2a);
+    }
+}
+
+.team-bar-token-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.team-bar-text-name {
+    font-family: 'Fredoka', sans-serif;
+    color: #c92a2a;
+}
+
+.team-bar-text-name--active {
+    color: white;
+}
+
+.team-bar-text-status {
+    font-family: 'Fredoka', sans-serif;
+    color: #c92a2a;
+}
+
+.team-bar-text-status--active {
+    color: white;
+}

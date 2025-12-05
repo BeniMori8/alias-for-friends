@@ -28,6 +28,52 @@
     color: #c92a2a;
     /* red.7 */
     font-weight: 900;
-    font-size: clamp(0.8rem, 2vw, 1.5rem);
+    font-size: clamp(0.6rem, 1.8vw, 1.5rem);
+    font-family: 'Fredoka', sans-serif;
     user-select: none;
+}
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 576px) {
+    .benias-board-cell {
+        width: 5.5%;
+        border-width: 1.5px;
+    }
+
+    .benias-board-cell.is-start,
+    .benias-board-cell.is-end {
+        border-width: 2.5px;
+    }
+
+    .benias-board-cell-text {
+        font-size: clamp(0.5rem, 2.2vw, 1rem);
+        font-weight: 700;
+    }
+}
+
+/* Small devices (phones in landscape, tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .benias-board-cell {
+        width: 5%;
+    }
+
+    .benias-board-cell-text {
+        font-size: clamp(0.6rem, 2vw, 1.2rem);
+    }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1200px) {
+    .benias-board-cell {
+        border-width: 3px;
+    }
+
+    .benias-board-cell.is-start,
+    .benias-board-cell.is-end {
+        border-width: 5px;
+    }
+
+    .benias-board-cell-text {
+        font-size: clamp(0.8rem, 1.6vw, 1.8rem);
+    }
 }

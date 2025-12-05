@@ -6,7 +6,7 @@ import { Container, Stack, Title, Text, Paper, ScrollArea, Group } from '@mantin
 import type { RoundHistoryItem } from '../CardRound.types';
 
 // Constants
-import { CARD_STATUS, TARGET_WORD_INDEX, UI_STRINGS } from '../CardRound.constants';
+import { CARD_STATUS, UI_STRINGS } from '../CardRound.constants';
 
 // Styles
 import './RoundSummaryView.css';
@@ -17,6 +17,7 @@ export interface RoundSummaryViewProps {
     cards: readonly string[][];
     onToggleItem: (index: number) => void;
     onClose?: () => void;
+    highlightedWordIndex?: number;
 }
 
 export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
@@ -25,6 +26,7 @@ export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
     cards,
     onToggleItem,
     onClose,
+    highlightedWordIndex = 0,
 }) => {
     return (
         <div className="card-round-overlay">
@@ -45,7 +47,7 @@ export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
                                     {roundHistory.map((item, index) => (
                                         <div key={index} className={`summary-row ${item.status}`}>
                                             <Text className="summary-word">
-                                                {cards[item.cardIndex][TARGET_WORD_INDEX]}
+                                                {cards[item.cardIndex][highlightedWordIndex]}
                                             </Text>
                                             <Group gap="xs" className="summary-buttons">
                                                 <button

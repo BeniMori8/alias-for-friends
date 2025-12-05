@@ -1,59 +1,70 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { TeamSettings } from '../../settings/settings.types';
+import { getCellPositions } from '../PathUtils';
+import { BOARD_CELLS } from '../types';
 import './PlayerTokens.css';
 
 interface PlayerTokensProps {
-    startPosition?: { top: string; left: string };
-    teams?: TeamSettings[];
+    teams?: (TeamSettings & { position?: number })[];
 }
 
-export const PlayerTokens: React.FC<PlayerTokensProps> = ({ startPosition, teams }) => {
-    // If no start position is provided, default to top-left
-    const pos = startPosition || { top: '2%', left: '5%' };
+export const PlayerTokens: React.FC<PlayerTokensProps> = ({ teams }) => {
+    // Calculate all cell positions once
+    const cellPositions = useMemo(() => getCellPositions(BOARD_CELLS.length), []);
 
     // Default tokens if no teams provided (fallback)
     const defaultTokens = [
-        { color: '#FFD700', id: 1 }, // Yellow
-        { color: '#228BE6', id: 2 }, // Blue
+        { color: '#FFD700', id: 1, position: 0 }, // Yellow
+        { color: '#228BE6', id: 2, position: 0 }, // Blue
     ];
 
     const activeTeams = teams || defaultTokens.map(t => ({ ...t, name: `Team ${t.id}` }));
 
-    // Calculate offsets to spread tokens around the center
-    // We'll arrange them in a circle
+    // Calculate offsets to spread tokens around the center of the cell
+    // We'll arrange them in a circle if multiple are on the same cell
     const radius = 40; // Distance from center in percentage relative to token size
-    const getTokenOffset = (index: number, total: number) => {
-        if (total === 1) return { x: 0, y: 0 };
 
-        const angle = (index * (360 / total)) * (Math.PI / 180);
-        return {
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius
-        };
-    };
+    // Group teams by position to handle collisions
+    const teamsByPosition = activeTeams.reduce((acc, team) => {
+        const pos = team.position || 0;
+        if (!acc[pos]) acc[pos] = [];
+        acc[pos].push(team);
+        return acc;
+    }, {} as Record<number, typeof activeTeams>);
 
     return (
-        <div
-            className="benias-player-tokens-container"
-            style={{
-                top: pos.top,
-                left: pos.left,
-            }}
-        >
-            {activeTeams.map((team, index) => {
-                const offset = getTokenOffset(index, activeTeams.length);
-                return (
-                    <div
-                        key={team.id}
-                        className="benias-player-token"
-                        style={{
-                            backgroundColor: team.color,
-                            transform: `translate(calc(-50% + ${offset.x}%), calc(-50% + ${offset.y}%))`,
-                        }}
-                        title={team.name}
-                    />
-                );
+        <div className="benias-player-tokens-container">
+            {Object.entries(teamsByPosition).map(([posIndexStr, teamsOnCell]) => {
+                const posIndex = parseInt(posIndexStr);
+                const cellPos = cellPositions[posIndex] || cellPositions[0];
+
+                return teamsOnCell.map((team, index) => {
+                    // Calculate offset if multiple teams on same cell
+                    let offsetX = 0;
+                    let offsetY = 0;
+
+                    if (teamsOnCell.length > 1) {
+                        const angle = (index * (360 / teamsOnCell.length)) * (Math.PI / 180);
+                        offsetX = Math.cos(angle) * radius;
+                        offsetY = Math.sin(angle) * radius;
+                    }
+
+                    return (
+                        <div
+                            key={team.id}
+                            className="benias-player-token"
+                            style={{
+                                left: `${cellPos.x}%`,
+                                top: `${cellPos.y}%`,
+                                backgroundColor: team.color,
+                                transform: `translate(calc(-50% + ${offsetX}%), calc(-50% + ${offsetY}%))`,
+                            }}
+                            title={`${team.name} (Step ${posIndex + 1})`}
+                        />
+                    );
+                });
             })}
         </div>
     );
 };
+

@@ -191,6 +191,23 @@
     gap: 0.75rem;
 }
 
+.word-row--highlighted {
+    background: linear-gradient(135deg, #fff9db 0%, #ffed4e 100%);
+    border-color: #ffd700;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    transform: scale(1.02);
+}
+
+.word-row--highlighted .word-number {
+    color: #c92a2a;
+    font-weight: 900;
+}
+
+.word-row--highlighted .word-text {
+    color: #c92a2a;
+    font-weight: 700;
+}
+
 
 .word-number {
     font-family: 'Outfit', sans-serif;
