@@ -39,3 +39,4 @@ export const MIN_ROUND_DURATION = 5;
 export const MAX_ROUND_DURATION = 120;
 export const MIN_TEAMS = 2;
 export const MAX_TEAMS = 6;
+export const MAX_TEAM_NAME_LENGTH = 30;
