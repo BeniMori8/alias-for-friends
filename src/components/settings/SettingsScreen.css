@@ -115,6 +115,9 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     animation: fadeInUp 0.6s ease-out 0.4s backwards;
     transition: transform 0.3s ease;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -326,4 +329,20 @@
     .settings-decorations {
         gap: 1.5rem;
     }
+}
+
+/* Pagination Controls */
+.pagination-arrow {
+    transition: all 0.2s ease;
+}
+
+.pagination-arrow:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.pagination-text {
+    font-family: 'Fredoka', sans-serif;
+    color: #495057;
+    min-width: 50px;
+    text-align: center;
 }

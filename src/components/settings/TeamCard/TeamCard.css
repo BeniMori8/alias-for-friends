@@ -55,3 +55,17 @@
     background-color: #c92a2a95 !important;
     color: white !important;
 }
+
+/* Team Name Character Counter */
+.team-name-counter {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: #868e96;
+    text-align: right;
+    direction: rtl;
+}
+
+.team-name-counter--error {
+    color: #fa5252;
+    font-weight: 700;
+}

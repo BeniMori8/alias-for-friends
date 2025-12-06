@@ -11,6 +11,7 @@ import {
     MAX_ROUND_DURATION,
     MIN_TEAMS,
     MAX_TEAMS,
+    MAX_TEAM_NAME_LENGTH,
 } from './settings.constants';
 import './SettingsScreen.css';
 
@@ -54,6 +55,10 @@ export const SettingsScreen: React.FC = () => {
 
     // Update team name
     const handleTeamNameChange = (id: number, name: string) => {
+        // Enforce max length
+        if (name.length > MAX_TEAM_NAME_LENGTH) {
+            return;
+        }
         setTeams((prevTeams) =>
             prevTeams.map((team) => (team.id === id ? { ...team, name } : team))
         );
