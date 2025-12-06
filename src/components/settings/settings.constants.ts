@@ -35,7 +35,7 @@ export const COLOR_NAMES: Record<string, string> = {
 };
 
 export const DEFAULT_ROUND_DURATION = 90;
-export const MIN_ROUND_DURATION = 5;
+export const MIN_ROUND_DURATION = 10;
 export const MAX_ROUND_DURATION = 120;
 export const MIN_TEAMS = 2;
 export const MAX_TEAMS = 6;
