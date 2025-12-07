@@ -29,7 +29,7 @@ export const TIMER_CONSTANTS = {
 
 // Animation
 export const ANIMATION_DELAYS = {
-    CARD_CHANGE_MS: 300,
+    CARD_CHANGE_MS: 100,
     CARD_REVEAL_MS: 100,
 } as const;
 
