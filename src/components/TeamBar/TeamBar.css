@@ -20,8 +20,6 @@
     background: white;
     border: 2px solid #c92a2a;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center;
 }
 
 .team-bar-card--active {
@@ -88,4 +86,34 @@
 
 .team-bar-text-status--active {
     color: white;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .team-bar-container {
+        padding: 10px 0;
+    }
+
+    .team-bar-card {
+        min-width: 120px;
+        padding: 10px 12px;
+    }
+
+    .team-bar-card--active {
+        transform: translateY(-4px) scale(1.02);
+    }
+
+    .team-bar-card--clickable:hover {
+        transform: translateY(-6px) scale(1.04);
+    }
+
+    .team-bar-text-name,
+    .team-bar-text-status {
+        font-size: 0.85rem;
+    }
+
+    .team-bar-token-indicator {
+        width: 16px;
+        height: 16px;
+    }
 }

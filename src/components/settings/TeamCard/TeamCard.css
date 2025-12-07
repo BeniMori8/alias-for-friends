@@ -69,3 +69,11 @@
     color: #fa5252;
     font-weight: 700;
 }
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .team-card-color-select-container {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
