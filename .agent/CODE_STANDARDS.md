@@ -147,3 +147,75 @@ never use magic numbers or strings. Use consts instead. if the const is used in 
 
 ## Jokes
 for each resonse now, generate a short joke in the start of the response
+
+---
+
+# Benias Design System
+
+## Primary Colors
+| Name     | Hex       | Usage                          |
+|----------|-----------|--------------------------------|
+| Crimson  | `#c92a2a` | Primary background, titles     |
+| Gold     | `#ffd700` | Buttons, accents, highlights   |
+| Gold Light | `#ffed4e` | Gradient endpoints           |
+| Cream    | `#fff9db` | Warm backgrounds (badges)      |
+
+## Neutral Colors
+| Name     | Hex       | Usage                          |
+|----------|-----------|--------------------------------|
+| Dark     | `#212529` | Text, dark buttons             |
+| Gray     | `#495057` | Secondary text                 |
+| Light Gray | `#868e96` | Dimmed text, labels          |
+
+## Fonts
+```css
+/* Primary - headings, buttons, important text */
+font-family: 'Fredoka', sans-serif;
+
+/* Secondary - body text, labels */
+font-family: 'Outfit', sans-serif;
+```
+
+## Button Styles (Gold Primary)
+```css
+.button-primary {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #c92a2a;
+    border: 4px solid white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 6px rgba(255, 215, 0, 0.4);
+}
+```
+
+## Overlay Pattern (NOT Mantine Modal)
+```css
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+```
+
+## Team Tokens
+```css
+.team-token {
+    border-radius: 50%;
+    background-color: var(--team-color);
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+```
+
+## DO NOT
+- ❌ Use Mantine Modal for overlays (causes visibility issues)
+- ❌ Add new npm dependencies without approval
+- ❌ Use fonts other than Fredoka/Outfit
