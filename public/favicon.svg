@@ -1,0 +1,22 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Crimson red circular background -->
+    <circle cx="50" cy="50" r="48" fill="#c92a2a"/>
+    
+    <!-- Gold speech bubble - group centered at 50,50 -->
+    <g transform="translate(50, 50)">
+        <!-- Speech bubble body centered at origin -->
+        <ellipse cx="0" cy="-5" rx="28" ry="22" fill="#ffd700"/>
+        
+        <!-- Speech bubble tail -->
+        <path d="M-15 12 Q-22 22, -25 28 Q-15 20, -10 14 Z" fill="#ffd700"/>
+        
+        <!-- Question mark centered at origin -->
+        <text x="0" y="0" 
+              font-family="Arial Black, Arial, sans-serif" 
+              font-size="34" 
+              font-weight="900" 
+              fill="white" 
+              text-anchor="middle" 
+              dominant-baseline="middle">?</text>
+    </g>
+</svg>
