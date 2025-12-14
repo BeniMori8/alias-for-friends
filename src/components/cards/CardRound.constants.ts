@@ -29,8 +29,8 @@ export const TIMER_CONSTANTS = {
 
 // Animation
 export const ANIMATION_DELAYS = {
-    CARD_CHANGE_MS: 100,
-    CARD_REVEAL_MS: 100,
+    CARD_CHANGE_MS: 150,
+    CARD_REVEAL_MS: 150,
 } as const;
 
 // Target Word Index (temporary - will be dynamic based on board position)

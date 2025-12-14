@@ -55,7 +55,7 @@ export const TeamBar: React.FC<TeamBarProps> = ({
                                     fw={600}
                                     className={`team-bar-text-status ${isActive ? 'team-bar-text-status--active' : ''}`}
                                 >
-                                    {cellsLeft > 0 ? TEAM_BAR_TEXT.STEPS_REMAINING(cellsLeft) : TEAM_BAR_TEXT.VICTORY}
+                                    {TEAM_BAR_TEXT.STEPS_REMAINING(Math.max(0, cellsLeft))}
                                 </Text>
                             </Stack>
                         </Paper>

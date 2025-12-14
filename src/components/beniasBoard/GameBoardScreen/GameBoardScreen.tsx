@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import confetti from 'canvas-confetti';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BeniasBoard } from '../BeniasBoard';
 import { CardRound } from '../../cards/CardRound';
 import { TeamBar } from '../../TeamBar/TeamBar';
 import { BENIAS_CARDS } from '../../../consts/BeniasCards';
 import { useGameState } from '../../../state/GameState';
+import { DEFAULT_BOARD_SIZE } from '../../settings/settings.constants';
 import type { TeamSettings } from '../../settings/settings.types';
 import './GameBoardScreen.css';
-import { VictoryModal } from './VictoryModal/VictoryModal';
+import { VictoryModal } from '../../VictoryModal/VictoryModal';
 
 const DEFAULT_ROUND_DURATION = 90;
-const DEFAULT_BOARD_SIZE = 64;
-const CONFETTI_DURATION = 3000;
 const MOVEMENT_DELAY = 500;
 
 export const GameBoardScreen: React.FC = () => {
@@ -20,6 +18,7 @@ export const GameBoardScreen: React.FC = () => {
     const [victoryTeam, setVictoryTeam] = useState<{ name: string; color: string } | null>(null);
 
     const location = useLocation();
+    const navigate = useNavigate();
     const { teams, currentTeamIndex, boardSize, setTeams, setBoardSize, nextTeam, updateTeamPosition } = useGameState();
 
     const state = location.state as {
@@ -64,6 +63,7 @@ export const GameBoardScreen: React.FC = () => {
         const lastCellIndex = boardSize - 1;
         if (targetPos > lastCellIndex) targetPos = lastCellIndex;
 
+
         if (targetPos === activeTeam.position) {
             nextTeam();
             return;
@@ -81,6 +81,7 @@ export const GameBoardScreen: React.FC = () => {
 
         await new Promise(resolve => setTimeout(resolve, MOVEMENT_DELAY));
 
+
         if (targetPos === lastCellIndex) {
             showVictoryModal(activeTeam);
         } else {
@@ -90,33 +91,12 @@ export const GameBoardScreen: React.FC = () => {
 
     const showVictoryModal = (team: { name: string; color: string }) => {
         setVictoryTeam(team);
-        triggerConfetti(team.color);
     };
 
-    const triggerConfetti = (teamColor: string) => {
-        const end = Date.now() + CONFETTI_DURATION;
-
-        const frame = () => {
-            confetti({
-                particleCount: 2,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: [teamColor, '#ffffff']
-            });
-            confetti({
-                particleCount: 2,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: [teamColor, '#ffffff']
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        };
-        frame();
+    const handleStartRound = () => {
+        if (!victoryTeam) {
+            setShowCardRound(true);
+        }
     };
 
     return (
@@ -132,12 +112,12 @@ export const GameBoardScreen: React.FC = () => {
             />
 
             <TeamBar
-                onStartRound={() => setShowCardRound(true)}
+                onStartRound={handleStartRound}
                 isRoundActive={showCardRound}
                 isGameOver={!!victoryTeam}
             />
 
-            {showCardRound && (
+            {showCardRound && !victoryTeam && (
                 <CardRound
                     cards={BENIAS_CARDS}
                     roundDurationSeconds={roundDurationSeconds}
@@ -147,14 +127,11 @@ export const GameBoardScreen: React.FC = () => {
                 />
             )}
 
-            {victoryTeam && (
-                <VictoryModal
-                    isOpen={!!victoryTeam}
-                    teamName={victoryTeam.name}
-                    teamColor={victoryTeam.color}
-                    onClose={() => { }}
-                />
-            )}
+            <VictoryModal
+                opened={!!victoryTeam}
+                winnerTeam={victoryTeam}
+                onBackToHome={() => navigate('/')}
+            />
         </div>
     );
 };

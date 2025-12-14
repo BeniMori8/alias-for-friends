@@ -1,11 +1,13 @@
 // TeamBar Constants
+import { COLORS, FONTS } from '../../constants';
+
 export const TEAM_BAR_COLORS = {
-    ACTIVE_BACKGROUND: '#c92a2a',
-    INACTIVE_BACKGROUND: 'white',
-    ACTIVE_TEXT: 'white',
-    INACTIVE_TEXT: '#c92a2a',
-    ACTIVE_BORDER: 'white',
-    INACTIVE_BORDER: '#c92a2a',
+    ACTIVE_BACKGROUND: COLORS.PRIMARY_RED,
+    INACTIVE_BACKGROUND: COLORS.WHITE,
+    ACTIVE_TEXT: COLORS.WHITE,
+    INACTIVE_TEXT: COLORS.PRIMARY_RED,
+    ACTIVE_BORDER: COLORS.WHITE,
+    INACTIVE_BORDER: COLORS.PRIMARY_RED,
 } as const;
 
 export const TEAM_BAR_SIZES = {
@@ -18,10 +20,9 @@ export const TEAM_BAR_SIZES = {
 } as const;
 
 export const TEAM_BAR_FONT = {
-    FAMILY: "'Fredoka', sans-serif",
+    FAMILY: FONTS.PRIMARY,
 } as const;
 
 export const TEAM_BAR_TEXT = {
     STEPS_REMAINING: (count: number) => `עוד ${count} צעדים 🎯`,
-    VICTORY: '🏆 ניצחון!',
 } as const;
