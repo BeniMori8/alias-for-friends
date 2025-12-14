@@ -1,7 +1,6 @@
 import React from 'react';
 import { Group, Paper, Text, Stack } from '@mantine/core';
 import { useGameState } from '../../state/GameState';
-import { BOARD_CELLS } from '../BeniasBoard/types';
 import { TEAM_BAR_TEXT } from './teamBar.constants';
 import './TeamBar.css';
 
@@ -16,8 +15,7 @@ export const TeamBar: React.FC<TeamBarProps> = ({
     isRoundActive = false,
     isGameOver = false
 }) => {
-    const { teams, currentTeamIndex } = useGameState();
-    const boardLength = BOARD_CELLS.length;
+    const { teams, currentTeamIndex, boardSize } = useGameState();
 
     if (teams.length === 0) return null;
 
@@ -26,7 +24,7 @@ export const TeamBar: React.FC<TeamBarProps> = ({
             <Group justify="center" gap="md" className="team-bar-group">
                 {teams.map((team, index) => {
                     const isActive = index === currentTeamIndex;
-                    const cellsLeft = (boardLength - 1) - team.position;
+                    const cellsLeft = (boardSize - 1) - team.position;
                     const canStartRound = isActive && onStartRound && cellsLeft > 0 && !isRoundActive && !isGameOver;
 
                     return (

@@ -12,6 +12,9 @@ import {
     MIN_TEAMS,
     MAX_TEAMS,
     MAX_TEAM_NAME_LENGTH,
+    DEFAULT_BOARD_SIZE,
+    MIN_BOARD_SIZE,
+    MAX_BOARD_SIZE,
 } from './settings.constants';
 import './SettingsScreen.css';
 
@@ -21,6 +24,7 @@ export const SettingsScreen: React.FC = () => {
     // State
     const [roundDuration, setRoundDuration] = useState<number>(DEFAULT_ROUND_DURATION);
     const [teamCount, setTeamCount] = useState<number>(MIN_TEAMS);
+    const [boardSize, setBoardSize] = useState<number>(DEFAULT_BOARD_SIZE);
     const [teams, setTeams] = useState<TeamSettings[]>([
         { id: 1, name: 'קבוצה 1', color: PRESET_COLORS[0] },
         { id: 2, name: 'קבוצה 2', color: PRESET_COLORS[1] },
@@ -73,9 +77,15 @@ export const SettingsScreen: React.FC = () => {
 
     // Validate and continue
     const handleContinue = () => {
-        // Validation
+        // Round duration validation
         if (roundDuration < MIN_ROUND_DURATION || roundDuration > MAX_ROUND_DURATION) {
             alert(`זמן סיבוב חייב להיות בין ${MIN_ROUND_DURATION} ל-${MAX_ROUND_DURATION} שניות`);
+            return;
+        }
+
+        // Board size validation
+        if (boardSize < MIN_BOARD_SIZE || boardSize > MAX_BOARD_SIZE) {
+            alert(`גודל הלוח חייב להיות בין ${MIN_BOARD_SIZE} ל-${MAX_BOARD_SIZE} תאים`);
             return;
         }
 
@@ -95,6 +105,7 @@ export const SettingsScreen: React.FC = () => {
             state: {
                 roundDurationSeconds: roundDuration,
                 teams: validatedTeams,
+                boardSize,
             },
         });
     };
@@ -118,8 +129,10 @@ export const SettingsScreen: React.FC = () => {
                             <GeneralSettings
                                 roundDuration={roundDuration}
                                 teamCount={teamCount}
+                                boardSize={boardSize}
                                 onRoundDurationChange={setRoundDuration}
                                 onTeamCountChange={handleTeamCountChange}
+                                onBoardSizeChange={setBoardSize}
                             />
 
                             {/* Team Configuration */}

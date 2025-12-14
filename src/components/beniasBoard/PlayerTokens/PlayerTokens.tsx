@@ -1,16 +1,21 @@
 import React, { useMemo } from 'react';
 import type { TeamSettings } from '../../settings/settings.types';
 import { getCellPositions } from '../PathUtils';
-import { BOARD_CELLS } from '../types';
 import './PlayerTokens.css';
+
+const DEFAULT_BOARD_SIZE = 64;
 
 interface PlayerTokensProps {
     teams?: (TeamSettings & { position?: number })[];
+    boardSize?: number;
 }
 
-export const PlayerTokens: React.FC<PlayerTokensProps> = ({ teams }) => {
+export const PlayerTokens: React.FC<PlayerTokensProps> = ({
+    teams,
+    boardSize = DEFAULT_BOARD_SIZE
+}) => {
     // Calculate all cell positions once
-    const cellPositions = useMemo(() => getCellPositions(BOARD_CELLS.length), []);
+    const cellPositions = useMemo(() => getCellPositions(boardSize), [boardSize]);
 
     // Default tokens if no teams provided (fallback)
     const defaultTokens = [
@@ -67,4 +72,3 @@ export const PlayerTokens: React.FC<PlayerTokensProps> = ({ teams }) => {
         </div>
     );
 };
-
