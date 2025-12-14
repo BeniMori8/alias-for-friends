@@ -56,12 +56,9 @@ export const CardRound: React.FC<CardRoundProps> = ({
 
     const currentCard = cards[currentCardIndex];
 
-    // Auto-transition to summary when time is up
-    React.useEffect(() => {
-        if (isTimeUp) {
-            setView(CARD_ROUND_VIEW.SUMMARY);
-        }
-    }, [isTimeUp]);
+    // Note: We intentionally do NOT auto-transition to summary when time is up.
+    // The player should be able to answer the current card first.
+    // The transition happens in handleNextCard after they answer.
 
     // Calculate which word index should be highlighted (1-8 maps to array index 0-7)
     const highlightedWordIndex = teamPosition % 8;

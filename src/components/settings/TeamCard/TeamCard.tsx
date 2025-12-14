@@ -78,10 +78,17 @@ export const TeamCard: React.FC<TeamCardProps> = ({
                         size="md"
                     />
                 </div>
-                <div style={{ flex: 1 }}>
+                <div className="team-name-wrapper" style={{ flex: 1 }}>
                     <TextInput
                         value={team.name}
                         onChange={(e) => onNameChange(team.id, e.target.value)}
+                        onBlur={(e) => {
+                            // Validate: if name is empty or just whitespace, revert to default
+                            const trimmed = e.target.value.trim();
+                            if (!trimmed) {
+                                onNameChange(team.id, `קבוצה ${index + 1}`);
+                            }
+                        }}
                         placeholder={`קבוצה ${index + 1}`}
                         size="md"
                         className="team-name-input"

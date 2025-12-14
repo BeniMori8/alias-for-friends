@@ -16,6 +16,7 @@ import {
     MIN_BOARD_SIZE,
     MAX_BOARD_SIZE,
 } from './settings.constants';
+import { clearSessionGame } from '../../utils/sessionGame';
 import './SettingsScreen.css';
 
 export const SettingsScreen: React.FC = () => {
@@ -101,6 +102,10 @@ export const SettingsScreen: React.FC = () => {
         };
 
         console.log('Game Settings:', gameSettings);
+
+        // Clear any existing session before starting new game
+        clearSessionGame();
+
         navigate('/board', {
             state: {
                 roundDurationSeconds: roundDuration,

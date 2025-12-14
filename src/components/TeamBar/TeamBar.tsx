@@ -2,6 +2,7 @@ import React from 'react';
 import { Group, Paper, Text, Stack } from '@mantine/core';
 import { useGameState } from '../../state/GameState';
 import { TEAM_BAR_TEXT } from './teamBar.constants';
+import { ResponsiveText } from './ResponsiveText/ResponsiveText';
 import './TeamBar.css';
 
 interface TeamBarProps {
@@ -42,13 +43,13 @@ export const TeamBar: React.FC<TeamBarProps> = ({
                                         className="team-bar-token-indicator"
                                         style={{ backgroundColor: team.color }}
                                     />
-                                    <Text
-                                        fw={700}
-                                        size="md"
+                                    <ResponsiveText
+                                        text={team.name}
+                                        maxWidth={80}
+                                        minFontSize={10}
+                                        maxFontSize={16}
                                         className={`team-bar-text-name ${isActive ? 'team-bar-text-name--active' : ''}`}
-                                    >
-                                        {team.name}
-                                    </Text>
+                                    />
                                 </Group>
                                 <Text
                                     size="sm"
