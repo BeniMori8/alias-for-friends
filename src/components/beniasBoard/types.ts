@@ -1,3 +1,5 @@
+import { DEFAULT_BOARD_SIZE } from '../settings/settings.constants';
+
 export interface BoardCellConfig {
     id: string;
     index: number;
@@ -5,8 +7,6 @@ export interface BoardCellConfig {
     isStart?: boolean;
     isEnd?: boolean;
 }
-
-const DEFAULT_BOARD_SIZE = 64;
 
 /**
  * Factory function to generate board cells for a given board size.

@@ -1,0 +1,144 @@
+/* Victory Overlay */
+.victory-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.victory-container {
+    width: 100%;
+    max-width: 340px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Victory Card - warm background like score badge */
+.victory-card {
+    background: linear-gradient(135deg, #fff9db 0%, #fffef5 100%);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    border: 5px solid var(--team-color, #ffd700);
+    animation: cardPop 0.4s ease-out;
+}
+
+@keyframes cardPop {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Victory Title - colorful */
+.victory-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #c92a2a;
+    margin: 0;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Team display */
+.victory-team-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+.victory-team-token {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--team-color, #ffd700);
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+
+.victory-team-name {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+/* Winner label */
+.victory-winner-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #868e96;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Button - gold themed */
+.victory-home-button {
+    margin-top: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #c92a2a;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 4px 12px rgba(255, 215, 0, 0.4),
+        0 0 0 4px rgba(255, 215, 0, 0.2);
+}
+
+.victory-home-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 6px 20px rgba(255, 215, 0, 0.5),
+        0 0 0 6px rgba(255, 215, 0, 0.25);
+}
+
+.victory-home-button:active {
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .victory-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .victory-title {
+        font-size: 1.875rem;
+    }
+
+    .victory-team-name {
+        font-size: 1.25rem;
+    }
+
+    .victory-team-token {
+        width: 48px;
+        height: 48px;
+    }
+}

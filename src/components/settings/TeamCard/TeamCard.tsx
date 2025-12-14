@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Group, TextInput, Text, Select } from '@mantine/core';
 import type { TeamSettings } from '../settings.types';
 import { PRESET_COLORS, COLOR_NAMES, MAX_TEAM_NAME_LENGTH } from '../settings.constants';
+import { FONTS } from '../../../constants';
 import './TeamCard.css';
 
 interface TeamCardProps {
@@ -91,12 +92,12 @@ export const TeamCard: React.FC<TeamCardProps> = ({
                                 borderColor: isNameTooLong ? '#fa5252' : team.color,
                                 borderWidth: '3px',
                                 fontWeight: 600,
-                                fontFamily: 'Fredoka, sans-serif',
+                                fontFamily: FONTS.PRIMARY,
                             },
                             label: {
                                 fontSize: '0.75rem',
                                 marginBottom: '4px',
-                                fontFamily: 'Fredoka, sans-serif',
+                                fontFamily: FONTS.PRIMARY,
                                 fontWeight: 600,
                                 color: '#6c757d',
                             },

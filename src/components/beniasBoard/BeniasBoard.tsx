@@ -4,8 +4,7 @@ import { BoardPath } from './BoardPath/BoardPath';
 import { BoardCenterLogo } from './BoardCenterLogo/BoardCenterLogo';
 import { PlayerTokens } from './PlayerTokens/PlayerTokens';
 import type { TeamSettings } from '../settings/settings.types';
-
-const DEFAULT_BOARD_SIZE = 64;
+import { DEFAULT_BOARD_SIZE } from '../settings/settings.constants';
 
 interface BeniasBoardProps {
     teams?: TeamSettings[];

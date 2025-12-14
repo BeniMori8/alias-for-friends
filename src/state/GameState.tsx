@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, type ReactNode } from 'react';
-
-const DEFAULT_BOARD_SIZE = 64;
+import { DEFAULT_BOARD_SIZE } from '../components/settings/settings.constants';
 
 export interface Team {
     id: string;

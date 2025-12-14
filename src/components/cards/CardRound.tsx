@@ -56,6 +56,13 @@ export const CardRound: React.FC<CardRoundProps> = ({
 
     const currentCard = cards[currentCardIndex];
 
+    // Auto-transition to summary when time is up
+    React.useEffect(() => {
+        if (isTimeUp) {
+            setView(CARD_ROUND_VIEW.SUMMARY);
+        }
+    }, [isTimeUp]);
+
     // Calculate which word index should be highlighted (1-8 maps to array index 0-7)
     const highlightedWordIndex = teamPosition % 8;
 

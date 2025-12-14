@@ -2,8 +2,7 @@ import React, { useMemo } from 'react';
 import { BoardCell } from '../BoardCell/BoardCell';
 import { createBoardCells } from '../types';
 import { getCellPositions, getCellSizePercent } from '../PathUtils';
-
-const DEFAULT_BOARD_SIZE = 64;
+import { DEFAULT_BOARD_SIZE } from '../../settings/settings.constants';
 
 interface BoardPathProps {
     boardSize?: number;

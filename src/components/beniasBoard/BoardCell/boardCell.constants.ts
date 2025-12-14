@@ -1,4 +1,6 @@
-// BoardCell Constants
+
+import { COLORS, FONTS } from "../../../constants";
+
 export const BOARD_CELL_SIZES = {
     CELL_WIDTH_PERCENTAGE: 4.8,
     MOBILE_WIDTH_PERCENTAGE: 5.5,
@@ -15,12 +17,12 @@ export const BOARD_CELL_BORDERS = {
 } as const;
 
 export const BOARD_CELL_COLORS = {
-    BACKGROUND: 'white',
-    BORDER_DEFAULT: '#c92a2a',
-    BORDER_START: '#ffd700',
-    BORDER_END: '#40c057',
-    BACKGROUND_END: '#e9fac8',
-    TEXT_COLOR: '#c92a2a',
+    BACKGROUND: COLORS.WHITE,
+    BORDER_DEFAULT: COLORS.PRIMARY_RED,
+    BORDER_START: COLORS.GOLD,
+    BORDER_END: COLORS.SUCCESS,
+    BACKGROUND_END: COLORS.SUCCESS_LIGHTEST,
+    TEXT_COLOR: COLORS.PRIMARY_RED,
 } as const;
 
 export const BOARD_CELL_SHADOW = {
@@ -30,7 +32,7 @@ export const BOARD_CELL_SHADOW = {
 } as const;
 
 export const BOARD_CELL_FONT = {
-    FAMILY: "'Fredoka', sans-serif",
+    FAMILY: FONTS.PRIMARY,
     WEIGHT_DEFAULT: 900,
     WEIGHT_MOBILE: 700,
 } as const;

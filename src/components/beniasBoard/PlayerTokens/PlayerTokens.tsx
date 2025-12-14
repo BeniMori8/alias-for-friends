@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import type { TeamSettings } from '../../settings/settings.types';
 import { getCellPositions } from '../PathUtils';
+import { DEFAULT_BOARD_SIZE } from '../../settings/settings.constants';
 import './PlayerTokens.css';
-
-const DEFAULT_BOARD_SIZE = 64;
 
 interface PlayerTokensProps {
     teams?: (TeamSettings & { position?: number })[];

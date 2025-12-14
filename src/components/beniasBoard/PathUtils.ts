@@ -3,6 +3,12 @@ export interface Point {
     y: number;
 }
 
+import {
+    MIN_BOARD_SIZE,
+    MAX_BOARD_SIZE,
+    DEFAULT_BOARD_SIZE,
+} from '../settings/settings.constants';
+
 // Define the path as a series of points (0-100 coordinate space)
 // Outer Loop -> Inner Loop
 const PATH_POINTS: Point[] = [
@@ -27,11 +33,6 @@ const ASPECT_RATIO = 16 / 9;
 const CORNER_RADIUS = 3; // Radius for corner smoothing in coordinate units
 const DENSIFICATION_STEPS = 50; // Steps per segment for high-resolution sampling
 const CORNER_STEPS = 8; // Number of interpolation points for each corner arc
-
-// Board size thresholds for cell sizing
-const MIN_BOARD_SIZE = 48;
-const MAX_BOARD_SIZE = 80;
-const DEFAULT_BOARD_SIZE = 64;
 
 // Cell size percentages (width as % of board)
 const CELL_SIZE_SPARSE = 5.2; // For smaller boards (48)
