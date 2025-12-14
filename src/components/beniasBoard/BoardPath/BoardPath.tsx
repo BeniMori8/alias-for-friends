@@ -1,14 +1,22 @@
 import React, { useMemo } from 'react';
 import { BoardCell } from '../BoardCell/BoardCell';
-import { BOARD_CELLS } from '../types';
-import { getCellPositions } from '../PathUtils';
+import { createBoardCells } from '../types';
+import { getCellPositions, getCellSizePercent } from '../PathUtils';
 
-export const BoardPath: React.FC = () => {
-    const positions = useMemo(() => getCellPositions(BOARD_CELLS.length), []);
+const DEFAULT_BOARD_SIZE = 64;
+
+interface BoardPathProps {
+    boardSize?: number;
+}
+
+export const BoardPath: React.FC<BoardPathProps> = ({ boardSize = DEFAULT_BOARD_SIZE }) => {
+    const cells = useMemo(() => createBoardCells(boardSize), [boardSize]);
+    const positions = useMemo(() => getCellPositions(boardSize), [boardSize]);
+    const cellSize = useMemo(() => getCellSizePercent(boardSize), [boardSize]);
 
     return (
         <>
-            {BOARD_CELLS.map((cell, index) => {
+            {cells.map((cell, index) => {
                 const pos = positions[index];
                 return (
                     <BoardCell
@@ -16,6 +24,7 @@ export const BoardPath: React.FC = () => {
                         value={cell.value}
                         isStart={cell.isStart}
                         isEnd={cell.isEnd}
+                        cellSize={cellSize}
                         style={{
                             left: `${pos.x}%`,
                             top: `${pos.y}%`,

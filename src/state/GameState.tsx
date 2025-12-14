@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
+const DEFAULT_BOARD_SIZE = 64;
+
 export interface Team {
     id: string;
     name: string;
@@ -10,7 +12,9 @@ export interface Team {
 interface GameState {
     teams: Team[];
     currentTeamIndex: number;
+    boardSize: number;
     setTeams: (teams: Team[]) => void;
+    setBoardSize: (size: number) => void;
     nextTeam: () => void;
     updateTeamPosition: (teamId: string, newPosition: number) => void;
 }
@@ -20,10 +24,15 @@ const GameStateContext = createContext<GameState | undefined>(undefined);
 export const GameStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [teams, setTeamsState] = useState<Team[]>([]);
     const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
+    const [boardSize, setBoardSizeState] = useState(DEFAULT_BOARD_SIZE);
 
     const setTeams = (newTeams: Team[]) => {
         setTeamsState(newTeams);
         setCurrentTeamIndex(0);
+    };
+
+    const setBoardSize = (size: number) => {
+        setBoardSizeState(size);
     };
 
     const nextTeam = () => {
@@ -42,7 +51,9 @@ export const GameStateProvider: React.FC<{ children: ReactNode }> = ({ children 
     const value: GameState = {
         teams,
         currentTeamIndex,
+        boardSize,
         setTeams,
+        setBoardSize,
         nextTeam,
         updateTeamPosition,
     };

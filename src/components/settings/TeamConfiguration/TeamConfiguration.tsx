@@ -33,7 +33,7 @@ export const TeamConfiguration: React.FC<TeamConfigurationProps> = ({
 
     return (
         <Paper className="settings-card">
-            <Stack gap="md">
+            <Stack >
                 <Group justify="space-between" align="center">
                     <Title order={3} className="settings-section-title">
                         🎨 קבוצות

@@ -34,9 +34,17 @@ export const COLOR_NAMES: Record<string, string> = {
     '#51CF66': 'ליים',
 };
 
+// Round duration settings
 export const DEFAULT_ROUND_DURATION = 90;
 export const MIN_ROUND_DURATION = 10;
 export const MAX_ROUND_DURATION = 120;
+
+// Team settings
 export const MIN_TEAMS = 2;
 export const MAX_TEAMS = 6;
 export const MAX_TEAM_NAME_LENGTH = 30;
+
+// Board size settings
+export const DEFAULT_BOARD_SIZE = 64;
+export const MIN_BOARD_SIZE = 48;
+export const MAX_BOARD_SIZE = 80;

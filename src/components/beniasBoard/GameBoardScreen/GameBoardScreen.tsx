@@ -6,12 +6,12 @@ import { CardRound } from '../../cards/CardRound';
 import { TeamBar } from '../../TeamBar/TeamBar';
 import { BENIAS_CARDS } from '../../../consts/BeniasCards';
 import { useGameState } from '../../../state/GameState';
-import { BOARD_CELLS } from '../types';
 import type { TeamSettings } from '../../settings/settings.types';
 import './GameBoardScreen.css';
 import { VictoryModal } from './VictoryModal/VictoryModal';
 
 const DEFAULT_ROUND_DURATION = 90;
+const DEFAULT_BOARD_SIZE = 64;
 const CONFETTI_DURATION = 3000;
 const MOVEMENT_DELAY = 500;
 
@@ -20,12 +20,18 @@ export const GameBoardScreen: React.FC = () => {
     const [victoryTeam, setVictoryTeam] = useState<{ name: string; color: string } | null>(null);
 
     const location = useLocation();
-    const { teams, currentTeamIndex, setTeams, nextTeam, updateTeamPosition } = useGameState();
+    const { teams, currentTeamIndex, boardSize, setTeams, setBoardSize, nextTeam, updateTeamPosition } = useGameState();
 
-    const state = location.state as { roundDurationSeconds?: number; teams?: TeamSettings[] } | undefined;
+    const state = location.state as {
+        roundDurationSeconds?: number;
+        teams?: TeamSettings[];
+        boardSize?: number;
+    } | undefined;
+
     const roundDurationSeconds = state?.roundDurationSeconds ?? DEFAULT_ROUND_DURATION;
+    const navBoardSize = state?.boardSize ?? DEFAULT_BOARD_SIZE;
 
-    // Initialize teams on mount
+    // Initialize teams and board size on mount
     useEffect(() => {
         const defaultTeams: TeamSettings[] = [
             { id: 1, name: 'קבוצה 1', color: '#FFD700' },
@@ -40,6 +46,8 @@ export const GameBoardScreen: React.FC = () => {
             color: t.color,
             position: 0
         })));
+
+        setBoardSize(navBoardSize);
     }, []);
 
     const handleRoundEnd = async (score: number) => {
@@ -53,7 +61,7 @@ export const GameBoardScreen: React.FC = () => {
         // Edge cases
         if (targetPos < 0) targetPos = 0;
 
-        const lastCellIndex = BOARD_CELLS.length - 1;
+        const lastCellIndex = boardSize - 1;
         if (targetPos > lastCellIndex) targetPos = lastCellIndex;
 
         if (targetPos === activeTeam.position) {
@@ -113,12 +121,15 @@ export const GameBoardScreen: React.FC = () => {
 
     return (
         <div className="game-board-screen">
-            <BeniasBoard teams={teams.map(t => ({
-                id: parseInt(t.id),
-                name: t.name,
-                color: t.color,
-                position: t.position
-            }))} />
+            <BeniasBoard
+                teams={teams.map(t => ({
+                    id: parseInt(t.id),
+                    name: t.name,
+                    color: t.color,
+                    position: t.position
+                }))}
+                boardSize={boardSize}
+            />
 
             <TeamBar
                 onStartRound={() => setShowCardRound(true)}
