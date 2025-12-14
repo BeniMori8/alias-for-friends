@@ -4,19 +4,22 @@ import { GameBoardScreen } from './components/BeniasBoard/GameBoardScreen/GameBo
 import { HomeScreen } from './components/home/HomeScreen';
 import { SettingsScreen } from './components/settings/SettingsScreen';
 import { GameStateProvider } from './state/GameState';
+import { AccessGate } from './components/AccessGate/AccessGate';
 
 export default function App() {
   return (
     <MantineProvider>
-      <GameStateProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/settings" element={<SettingsScreen />} />
-            <Route path="/board" element={<GameBoardScreen />} />
-          </Routes>
-        </BrowserRouter>
-      </GameStateProvider>
+      <AccessGate>
+        <GameStateProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/settings" element={<SettingsScreen />} />
+              <Route path="/board" element={<GameBoardScreen />} />
+            </Routes>
+          </BrowserRouter>
+        </GameStateProvider>
+      </AccessGate>
     </MantineProvider>
   );
 }

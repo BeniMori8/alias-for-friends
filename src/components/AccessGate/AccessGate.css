@@ -1,0 +1,120 @@
+/* Access Gate - consistent with project design */
+.access-gate-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #c92a2a;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative circles matching HomeScreen */
+.access-gate-container::before,
+.access-gate-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.access-gate-container::before {
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    top: -80px;
+    right: -80px;
+}
+
+.access-gate-container::after {
+    width: 250px;
+    height: 250px;
+    background-color: #ffd700;
+    bottom: -60px;
+    left: -60px;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Card */
+.access-gate-card {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+}
+
+.access-gate-title {
+    font-family: 'Fredoka', sans-serif;
+    color: #c92a2a;
+    font-weight: 700;
+}
+
+.access-gate-description {
+    font-family: 'Fredoka', sans-serif;
+    color: #495057;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.access-gate-input {
+    width: 100%;
+}
+
+.access-gate-input input {
+    font-family: 'Fredoka', sans-serif;
+    text-align: right;
+}
+
+.access-gate-input label {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+}
+
+.access-gate-input .mantine-InputWrapper-error {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    text-align: right;
+}
+
+.access-gate-button {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #c92a2a !important;
+    border: 3px solid white;
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.25),
+        0 0 0 4px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.access-gate-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 0 0 8px rgba(255, 215, 0, 0.5);
+    background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .access-gate-card {
+        padding: 1.5rem;
+    }
+}
