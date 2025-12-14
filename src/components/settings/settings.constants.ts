@@ -19,7 +19,7 @@ export const PRESET_COLORS = [
 
 // Hebrew names for colors
 export const COLOR_NAMES: Record<string, string> = {
-    '#FFD700': 'זהב',
+    '#FFD700': 'צהוב',
     '#228BE6': 'כחול',
     '#40C057': 'ירוק',
     '#FA5252': 'אדום',
@@ -42,9 +42,9 @@ export const MAX_ROUND_DURATION = 120;
 // Team settings
 export const MIN_TEAMS = 2;
 export const MAX_TEAMS = 6;
-export const MAX_TEAM_NAME_LENGTH = 30;
+export const MAX_TEAM_NAME_LENGTH = 20;
 
 // Board size settings
 export const DEFAULT_BOARD_SIZE = 64;
-export const MIN_BOARD_SIZE = 10;
+export const MIN_BOARD_SIZE = 48;
 export const MAX_BOARD_SIZE = 80;

@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Stack, Title, Text, Center } from '@mantine/core';
+import { hasValidSessionGame } from '../../utils/sessionGame';
 import './HomeScreen.css';
 
 export const HomeScreen: React.FC = () => {
     const navigate = useNavigate();
+    const [hasSession, setHasSession] = useState(false);
+
+    // Check for resumable session on mount
+    useEffect(() => {
+        setHasSession(hasValidSessionGame());
+    }, []);
 
     const handleStartGame = () => {
         navigate('/settings');
+    };
+
+    const handleContinueGame = () => {
+        // Navigate to board with resume flag - sessionStorage is source of truth
+        navigate('/board', { state: { resumeSession: true } });
     };
 
     return (
@@ -24,12 +36,23 @@ export const HomeScreen: React.FC = () => {
                             </Text>
                         </div>
 
-                        <button
-                            onClick={handleStartGame}
-                            className="home-screen-start-button"
-                        >
-                            התחל משחק
-                        </button>
+                        <Stack align="center" gap="md">
+                            <button
+                                onClick={handleStartGame}
+                                className="home-screen-start-button"
+                            >
+                                התחל משחק
+                            </button>
+
+                            {hasSession && (
+                                <button
+                                    onClick={handleContinueGame}
+                                    className="home-screen-continue-button"
+                                >
+                                    המשך משחק נוכחי
+                                </button>
+                            )}
+                        </Stack>
 
                         <div className="home-screen-decorations">
                             <span className="decoration-icon">🗣️</span>

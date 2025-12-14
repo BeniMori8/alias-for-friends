@@ -76,4 +76,13 @@
         width: 100%;
         margin-bottom: 0.5rem;
     }
+
+    .team-name-wrapper {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .team-name-input {
+        width: 100%;
+    }
 }
