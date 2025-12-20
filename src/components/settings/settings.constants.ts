@@ -46,5 +46,5 @@ export const MAX_TEAM_NAME_LENGTH = 20;
 
 // Board size settings
 export const DEFAULT_BOARD_SIZE = 64;
-export const MIN_BOARD_SIZE = 10;
+export const MIN_BOARD_SIZE = 50;
 export const MAX_BOARD_SIZE = 80;
