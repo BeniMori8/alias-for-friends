@@ -52,6 +52,10 @@ export const UI_STRINGS = {
     WATERMARK_TEXT: 'Benias',
     SUCCESS_ICON: '✔',
     FAIL_ICON: '✖',
+    // Steal mechanic
+    TIME_UP_STEAL_PROMPT: 'הזמן נגמר — מי גנב את הקלף?',
+    STEAL_DROPDOWN_PLACEHOLDER: 'בחר קבוצה שגנבה את הקלף',
+    STOLEN_CARD_HEADER: 'קלף שנגנב',
 } as const;
 
 // Layout Constants

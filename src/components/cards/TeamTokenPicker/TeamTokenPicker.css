@@ -1,0 +1,98 @@
+.team-token-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.team-token-picker__prompt {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #c92a2a;
+    text-align: center;
+    direction: rtl;
+    margin: 0;
+}
+
+.team-token-picker__tokens {
+    min-height: 36px;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+}
+
+.team-token-picker__token {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    outline: none;
+}
+
+.team-token-picker__token:hover:not(.team-token-picker__token--locked) {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.team-token-picker__token--selected {
+    border: 3px solid white;
+    box-shadow:
+        0 0 0 3px #c92a2a,
+        0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.15);
+}
+
+.team-token-picker__token--locked:not(.team-token-picker__token--selected) {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.team-token-picker__token--locked.team-token-picker__token--selected {
+    cursor: default;
+}
+
+@media (max-width: 768px) {
+    .team-token-picker__token {
+        width: 32px;
+        height: 32px;
+    }
+
+    .team-token-picker__prompt {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-token-picker__token {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 380px) {
+    .team-token-picker__token {
+        width: 24px;
+        height: 24px;
+        border-width: 2px;
+    }
+}
+
+@media (max-height: 700px) {
+    .team-token-picker {
+        padding: 0.4rem;
+        gap: 0.35rem;
+    }
+
+    .team-token-picker__token {
+        width: 30px;
+        height: 30px;
+    }
+}

@@ -7,9 +7,11 @@ import { BENIAS_CARDS } from '../../../consts/BeniasCards';
 import { useGameState } from '../../../state/GameState';
 import { DEFAULT_BOARD_SIZE, DEFAULT_ROUND_DURATION } from '../../settings/settings.constants';
 import type { TeamSettings } from '../../settings/settings.types';
+import type { RoundResult, RoundHistoryItem } from '../../cards/CardRound.types';
 import { loadSessionGame, clearSessionGame } from '../../../utils/sessionGame';
 import './GameBoardScreen.css';
 import { VictoryModal } from '../../VictoryModal/VictoryModal';
+import { CARD_STATUS, SCORE_VALUES } from '../../cards/CardRound.constants';
 
 const MOVEMENT_DELAY = 500;
 
@@ -19,6 +21,13 @@ interface NavigationState {
     boardSize?: number;
     resumeSession?: boolean;
 }
+
+// Helper to calculate score from history items
+const scoreFromHistory = (items: RoundHistoryItem[]): number => {
+    return items.reduce((acc, item) => {
+        return acc + (item.status === CARD_STATUS.SUCCESS ? SCORE_VALUES.SUCCESS : SCORE_VALUES.FAIL);
+    }, 0);
+};
 
 export const GameBoardScreen: React.FC = () => {
     const [showCardRound, setShowCardRound] = useState(false);
@@ -120,42 +129,86 @@ export const GameBoardScreen: React.FC = () => {
         saveToSession();
     }, [teams, currentTeamIndex, boardSize, roundDurationSeconds, isInitialized]);
 
-    const handleRoundEnd = async (score: number) => {
-        if (teams.length === 0) return;
-
-        setShowCardRound(false);
-
-        const activeTeam = teams[currentTeamIndex];
-        let targetPos = activeTeam.position + score;
-
-        // Edge cases
-        if (targetPos < 0) targetPos = 0;
-
+    // Helper to animate team movement
+    const animateTeamMovement = async (teamId: string, fromPos: number, score: number): Promise<{ finalPos: number; isVictory: boolean }> => {
         const lastCellIndex = boardSize - 1;
+        let targetPos = fromPos + score;
+
+        // Clamp position
+        if (targetPos < 0) targetPos = 0;
         if (targetPos > lastCellIndex) targetPos = lastCellIndex;
 
-        if (targetPos === activeTeam.position) {
-            nextTeam();
-            return;
+        if (targetPos === fromPos) {
+            return { finalPos: fromPos, isVictory: false };
         }
 
         // Animate movement step by step
-        const direction = targetPos > activeTeam.position ? 1 : -1;
-        let currentPos = activeTeam.position;
+        const direction = targetPos > fromPos ? 1 : -1;
+        let currentPos = fromPos;
 
         while (currentPos !== targetPos) {
             await new Promise(resolve => setTimeout(resolve, MOVEMENT_DELAY));
             currentPos += direction;
-            updateTeamPosition(activeTeam.id, currentPos);
+            updateTeamPosition(teamId, currentPos);
         }
 
         await new Promise(resolve => setTimeout(resolve, MOVEMENT_DELAY));
 
-        if (targetPos === lastCellIndex) {
-            showVictoryModalHandler(activeTeam);
-        } else {
+        return { finalPos: targetPos, isVictory: targetPos === lastCellIndex };
+    };
+
+    const handleRoundEnd = async (result: RoundResult) => {
+        if (teams.length === 0) return;
+
+        setShowCardRound(false);
+
+        const activeTeam = teams.find(t => t.id === result.activeTeamId);
+        if (!activeTeam) {
             nextTeam();
+            return;
         }
+
+        // Calculate scores
+        const completedScore = scoreFromHistory(result.completedCards);
+        const lastCardScore = result.lastShownCard
+            ? (result.lastShownCard.status === CARD_STATUS.SUCCESS ? SCORE_VALUES.SUCCESS : SCORE_VALUES.FAIL)
+            : 0;
+
+        // Move active team by completed cards score
+        const { finalPos: activeTeamFinalPos, isVictory: activeWon } = await animateTeamMovement(
+            activeTeam.id,
+            activeTeam.position,
+            completedScore
+        );
+
+        if (activeWon) {
+            showVictoryModalHandler(activeTeam);
+            return;
+        }
+
+        // If there's a stolen card, move the steal team
+        if (result.stolenByTeamId && result.lastShownCard) {
+            const stealTeam = teams.find(t => t.id === result.stolenByTeamId);
+            if (stealTeam) {
+                // Get the current position (may have changed if same team)
+                const stealTeamStartPos = stealTeam.id === activeTeam.id
+                    ? activeTeamFinalPos
+                    : stealTeam.position;
+
+                const { isVictory: stealWon } = await animateTeamMovement(
+                    stealTeam.id,
+                    stealTeamStartPos,
+                    lastCardScore
+                );
+
+                if (stealWon) {
+                    showVictoryModalHandler(stealTeam);
+                    return;
+                }
+            }
+        }
+
+        nextTeam();
     };
 
     const showVictoryModalHandler = (team: { name: string; color: string; id?: string }) => {
@@ -175,6 +228,15 @@ export const GameBoardScreen: React.FC = () => {
         // Session will be cleared when they start a new game from settings
         navigate('/');
     };
+
+    // Prepare team info for CardRound
+    const teamInfoForCardRound = teams.map(t => ({
+        id: t.id,
+        name: t.name,
+        color: t.color,
+    }));
+
+    const activeTeamId = teams[currentTeamIndex]?.id ?? '';
 
     return (
         <div className="game-board-screen">
@@ -198,6 +260,8 @@ export const GameBoardScreen: React.FC = () => {
                 <CardRound
                     cards={BENIAS_CARDS}
                     roundDurationSeconds={roundDurationSeconds}
+                    teams={teamInfoForCardRound}
+                    activeTeamId={activeTeamId}
                     onRoundEnd={handleRoundEnd}
                     onClose={() => setShowCardRound(false)}
                     teamPosition={teams[currentTeamIndex]?.position || 0}
