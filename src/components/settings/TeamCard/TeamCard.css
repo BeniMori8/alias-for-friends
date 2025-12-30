@@ -42,6 +42,8 @@
     transition: background-color 0.2s ease;
     margin: 4px 0;
     padding: 8px 12px;
+    display: flex;
+    justify-content: center;
     border-bottom: 1px solid #e9ecef;
 }
 

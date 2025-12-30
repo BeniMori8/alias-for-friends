@@ -125,3 +125,33 @@
     margin: 1rem auto 0;
     display: flex;
 }
+
+/* Stolen card row styles */
+.summary-row.stolen {
+    background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%);
+    border-color: #ffd43b;
+    border-width: 2px;
+}
+
+.summary-token-select {
+    flex-shrink: 0;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.summary-token-select.team-card-color-select-container {
+    width: 80px;
+}
+
+/* Center tokens in summary Select */
+.summary-token-select .team-card-color-token,
+.summary-token-select .team-card-color-token-small {
+    margin: 0 auto;
+}
+
+.summary-token-select .team-card-color-option-item {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
