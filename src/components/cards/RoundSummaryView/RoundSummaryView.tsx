@@ -1,9 +1,9 @@
 // External libraries
 import React from 'react';
-import { Container, Stack, Title, Text, Paper, ScrollArea, Group } from '@mantine/core';
+import { Container, Stack, Title, Text, Paper, ScrollArea, Group, Select } from '@mantine/core';
 
 // Types
-import type { RoundHistoryItem } from '../CardRound.types';
+import type { RoundHistoryItem, TeamInfo } from '../CardRound.types';
 
 // Constants
 import { CARD_STATUS, UI_STRINGS } from '../CardRound.constants';
@@ -18,6 +18,11 @@ export interface RoundSummaryViewProps {
     onToggleItem: (index: number) => void;
     onClose?: () => void;
     highlightedWordIndex?: number;
+    lastShownCard?: RoundHistoryItem | null;
+    teams?: TeamInfo[];
+    stealTeamId?: string | null;
+    onStealTeamChange?: (value: string | null) => void;
+    onToggleStolenCard?: () => void;
 }
 
 export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
@@ -27,7 +32,19 @@ export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
     onToggleItem,
     onClose,
     highlightedWordIndex = 0,
+    lastShownCard,
+    teams = [],
+    stealTeamId,
+    onStealTeamChange,
 }) => {
+    // Build team select data (value only, empty label for token-only display)
+    const teamSelectData = teams.map(team => ({
+        value: team.id,
+        label: '',
+    }));
+
+    const selectedTeam = teams.find(t => t.id === stealTeamId);
+
     return (
         <div className="card-round-overlay">
             <div className="card-round-container">
@@ -44,6 +61,7 @@ export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
                         <Paper className="card-round-summary-card">
                             <ScrollArea type="auto" className="summary-scroll-area">
                                 <Stack gap="sm" className="summary-list">
+                                    {/* Regular history rows with success/fail buttons */}
                                     {roundHistory.map((item, index) => (
                                         <div key={index} className={`summary-row ${item.status}`}>
                                             <Text className="summary-word">
@@ -65,6 +83,61 @@ export const RoundSummaryView: React.FC<RoundSummaryViewProps> = ({
                                             </Group>
                                         </div>
                                     ))}
+
+                                    {/* Stolen card row with team Select instead of buttons */}
+                                    {lastShownCard && (
+                                        <div className="summary-row stolen">
+                                            <Text className="summary-word">
+                                                {cards[lastShownCard.cardIndex][highlightedWordIndex]}
+                                            </Text>
+                                            <div className="team-card-color-select-container summary-token-select">
+                                                <Select
+                                                    value={stealTeamId}
+                                                    onChange={onStealTeamChange}
+                                                    data={teamSelectData}
+                                                    placeholder="?"
+                                                    comboboxProps={{
+                                                        position: 'bottom',
+                                                        middlewares: { flip: false, shift: false },
+                                                        withinPortal: true,
+                                                        zIndex: 10000,
+                                                    }}
+                                                    maxDropdownHeight={130}
+                                                    renderOption={({ option }) => {
+                                                        const team = teams.find(t => t.id === option.value);
+                                                        return (
+                                                            <div
+                                                                className="team-card-color-token"
+                                                                style={{ backgroundColor: team?.color }}
+                                                            />
+                                                        );
+                                                    }}
+                                                    leftSection={
+                                                        <div
+                                                            className="team-card-color-token-small"
+                                                            style={{
+                                                                backgroundColor: selectedTeam?.color || '#e9ecef',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                fontSize: '0.7rem',
+                                                                fontWeight: 700,
+                                                                color: selectedTeam ? 'transparent' : '#868e96',
+                                                            }}
+                                                        >
+                                                            {!selectedTeam && '?'}
+                                                        </div>
+                                                    }
+                                                    classNames={{
+                                                        input: 'team-card-color-select',
+                                                        dropdown: 'team-card-color-dropdown',
+                                                        option: 'team-card-color-option-item',
+                                                    }}
+                                                    size="md"
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </Stack>
                             </ScrollArea>
                         </Paper>

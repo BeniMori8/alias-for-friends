@@ -1,27 +1,18 @@
 // External libraries
 import React, { useState } from 'react';
-import { Container, Stack, Text, Paper, Group } from '@mantine/core';
 
 // Components
-import { SandClock } from '../SandClock/SandClock';
 import { RoundSummaryView } from './RoundSummaryView/RoundSummaryView';
+import { GameCardView } from './GameCardView/GameCardView';
 
 // Hooks
 import { useRoundTimer } from '../../hooks/useRoundTimer';
 
 // Types
-import type { RoundHistoryItem } from './CardRound.types';
-import type { CardRoundView } from './CardRound.types';
+import type { RoundHistoryItem, TeamInfo, RoundResult, CardRoundView } from './CardRound.types';
 
 // Constants
-import {
-    CARD_ROUND_VIEW,
-    CARD_STATUS,
-    SCORE_VALUES,
-    ANIMATION_DELAYS,
-    UI_STRINGS,
-    LAYOUT_CONSTANTS,
-} from './CardRound.constants';
+import { CARD_ROUND_VIEW, CARD_STATUS, SCORE_VALUES, ANIMATION_DELAYS } from './CardRound.constants';
 
 // Styles
 import './CardRound.css';
@@ -29,55 +20,33 @@ import './CardRound.css';
 export interface CardRoundProps {
     cards: readonly string[][];
     roundDurationSeconds: number;
-    onRoundEnd: (score: number) => void;
+    teams: TeamInfo[];
+    activeTeamId: string;
+    onRoundEnd: (result: RoundResult) => void;
     onClose?: () => void;
     teamPosition?: number;
 }
 
 export const CardRound: React.FC<CardRoundProps> = ({
-    cards,
-    roundDurationSeconds,
-    onRoundEnd,
-    onClose,
-    teamPosition = 0
+    cards, roundDurationSeconds, teams, activeTeamId, onRoundEnd, onClose, teamPosition = 0
 }) => {
-    // Card navigation state
-    const [currentCardIndex, setCurrentCardIndex] = useState(() =>
-        Math.floor(Math.random() * cards.length)
-    );
-
-    // View and history state
+    const [currentCardIndex, setCurrentCardIndex] = useState(() => Math.floor(Math.random() * cards.length));
     const [view, setView] = useState<CardRoundView>(CARD_ROUND_VIEW.GAME);
-    const [roundHistory, setRoundHistory] = useState<RoundHistoryItem[]>([]);
+    const [completedCards, setCompletedCards] = useState<RoundHistoryItem[]>([]);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [stealTeamId, setStealTeamId] = useState<string | null>(null);
+    const [stealLocked, setStealLocked] = useState(false);
+    const [lastShownCard, setLastShownCard] = useState<RoundHistoryItem | null>(null);
 
-    // Use timer hook
-    const { remainingSeconds, isTimeUp, isPaused, isUrgent, handleTogglePause } = useRoundTimer(roundDurationSeconds);
-
+    const timer = useRoundTimer(roundDurationSeconds);
     const currentCard = cards[currentCardIndex];
-
-    // Note: We intentionally do NOT auto-transition to summary when time is up.
-    // The player should be able to answer the current card first.
-    // The transition happens in handleNextCard after they answer.
-
-    // Calculate which word index should be highlighted (1-8 maps to array index 0-7)
     const highlightedWordIndex = teamPosition % 8;
+    const completedScore = completedCards.reduce((acc, item) =>
+        acc + (item.status === CARD_STATUS.SUCCESS ? SCORE_VALUES.SUCCESS : SCORE_VALUES.FAIL), 0);
 
-    // Calculate total score from history
-    const totalScore = roundHistory.reduce((acc, item) => {
-        return acc + (item.status === CARD_STATUS.SUCCESS ? SCORE_VALUES.SUCCESS : SCORE_VALUES.FAIL);
-    }, 0);
-
-    // Handle card change with slide animation
     const handleNextCard = (status: typeof CARD_STATUS.SUCCESS | typeof CARD_STATUS.FAIL) => {
-        const newHistoryItem: RoundHistoryItem = { cardIndex: currentCardIndex, status };
-        setRoundHistory(prev => [...prev, newHistoryItem]);
-
-        if (isTimeUp) {
-            setView(CARD_ROUND_VIEW.SUMMARY);
-            return;
-        }
-
+        setCompletedCards(prev => [...prev, { cardIndex: currentCardIndex, status }]);
+        if (timer.isTimeUp) { setView(CARD_ROUND_VIEW.SUMMARY); return; }
         setIsAnimating(true);
         setTimeout(() => {
             setCurrentCardIndex(Math.floor(Math.random() * cards.length));
@@ -85,101 +54,61 @@ export const CardRound: React.FC<CardRoundProps> = ({
         }, ANIMATION_DELAYS.CARD_CHANGE_MS);
     };
 
+    const handleStealTeamSelect = (teamId: string) => {
+        if (stealLocked) return;
+        setStealTeamId(teamId);
+        setStealLocked(true);
+        setLastShownCard({ cardIndex: currentCardIndex, status: CARD_STATUS.SUCCESS });
+        setView(CARD_ROUND_VIEW.SUMMARY);
+    };
+
     const handleToggleHistoryItem = (index: number) => {
-        setRoundHistory(prev => {
-            const newHistory = [...prev];
-            newHistory[index] = {
-                ...newHistory[index],
-                status: newHistory[index].status === CARD_STATUS.SUCCESS ? CARD_STATUS.FAIL : CARD_STATUS.SUCCESS
-            };
-            return newHistory;
-        });
+        setCompletedCards(prev => prev.map((item, i) => i === index
+            ? { ...item, status: item.status === CARD_STATUS.SUCCESS ? CARD_STATUS.FAIL : CARD_STATUS.SUCCESS }
+            : item));
+    };
+
+    const handleToggleStolenCard = () => {
+        if (!lastShownCard) return;
+        setLastShownCard({ ...lastShownCard, status: lastShownCard.status === CARD_STATUS.SUCCESS ? CARD_STATUS.FAIL : CARD_STATUS.SUCCESS });
     };
 
     const handleRoundComplete = () => {
-        onRoundEnd(totalScore);
-        if (onClose) onClose();
+        onRoundEnd({ activeTeamId, completedCards, lastShownCard, stolenByTeamId: stealTeamId });
+        onClose?.();
     };
 
-    // Render summary view
     if (view === CARD_ROUND_VIEW.SUMMARY) {
         return (
             <RoundSummaryView
-                roundHistory={roundHistory}
-                totalScore={totalScore}
+                roundHistory={completedCards}
+                totalScore={completedScore}
                 cards={cards}
                 onToggleItem={handleToggleHistoryItem}
                 onClose={handleRoundComplete}
                 highlightedWordIndex={highlightedWordIndex}
+                lastShownCard={lastShownCard}
+                teams={teams}
+                stealTeamId={stealTeamId}
+                onStealTeamChange={setStealTeamId}
+                onToggleStolenCard={handleToggleStolenCard}
             />
         );
     }
 
-    // Render game view
     return (
-        <div className="card-round-overlay">
-            <div className="card-round-container">
-                <Container size="md">
-                    <Stack gap="lg">
-                        <div className="card-round-header">
-                            <div className="header-content">
-                                <div className="timer-section">
-                                    <div
-                                        className={`timer-container ${isPaused ? 'paused' : ''}`}
-                                        onClick={handleTogglePause}
-                                        style={{ cursor: 'pointer' }}
-                                    >
-                                        <SandClock
-                                            totalSeconds={roundDurationSeconds}
-                                            remainingSeconds={remainingSeconds}
-                                            height={LAYOUT_CONSTANTS.SAND_CLOCK_HEIGHT}
-                                            className={isUrgent && !isPaused ? 'urgent' : ''}
-                                        />
-                                    </div>
-                                    <Text className={`timer-text ${isUrgent ? 'urgent' : ''}`}>
-                                        {remainingSeconds}
-                                    </Text>
-                                </div>
-
-                                <div className="card-round-score">
-                                    <Text className="score-label">{UI_STRINGS.SCORE_LABEL}</Text>
-                                    <Text className="score-value">{totalScore}</Text>
-                                </div>
-                            </div>
-                        </div>
-
-                        <Paper className={`card-round-main-card ${isAnimating ? 'animating' : ''}`}>
-                            <div className="card-watermark">
-                                <Text className="watermark-text">{UI_STRINGS.WATERMARK_TEXT}</Text>
-                            </div>
-
-                            <Stack gap="xs" className="words-list">
-                                {currentCard.map((word, index) => (
-                                    <div
-                                        key={index}
-                                        className={`word-row ${index === highlightedWordIndex ? 'word-row--highlighted' : ''}`}
-                                    >
-                                        <Text className="word-number">{index + 1}.</Text>
-                                        <Text className="word-text">{word}</Text>
-                                    </div>
-                                ))}
-                            </Stack>
-
-                            <Group gap="sm" className="action-buttons-inside" grow>
-                                <button onClick={() => handleNextCard(CARD_STATUS.FAIL)} className="action-button-compact fail" disabled={isAnimating}>
-                                    <span className="button-icon">{UI_STRINGS.FAIL_ICON}</span>
-                                    <span className="button-label">{UI_STRINGS.FAIL_BUTTON}</span>
-                                </button>
-
-                                <button onClick={() => handleNextCard(CARD_STATUS.SUCCESS)} className="action-button-compact success" disabled={isAnimating}>
-                                    <span className="button-icon">{UI_STRINGS.SUCCESS_ICON}</span>
-                                    <span className="button-label">{UI_STRINGS.SUCCESS_BUTTON}</span>
-                                </button>
-                            </Group>
-                        </Paper>
-                    </Stack>
-                </Container>
-            </div>
-        </div>
+        <GameCardView
+            currentCard={currentCard}
+            highlightedWordIndex={highlightedWordIndex}
+            completedScore={completedScore}
+            isAnimating={isAnimating}
+            roundDurationSeconds={roundDurationSeconds}
+            timer={timer}
+            teams={teams}
+            stealTeamId={stealTeamId}
+            stealLocked={stealLocked}
+            onStealTeamSelect={handleStealTeamSelect}
+            onNextCard={handleNextCard}
+        />
     );
 };
