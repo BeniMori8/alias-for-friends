@@ -9,4 +9,5 @@ export interface TeamSettings {
 export interface GameSettings {
     roundDurationSeconds: number;
     teams: TeamSettings[];
+    stealRoundsEnabled: boolean;
 }

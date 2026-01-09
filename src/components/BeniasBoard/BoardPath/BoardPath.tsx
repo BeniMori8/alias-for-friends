@@ -23,6 +23,7 @@ export const BoardPath: React.FC<BoardPathProps> = ({ boardSize = DEFAULT_BOARD_
                         value={cell.value}
                         isStart={cell.isStart}
                         isEnd={cell.isEnd}
+                        isSteal={cell.isSteal}
                         cellSize={cellSize}
                         style={{
                             left: `${pos.x}%`,

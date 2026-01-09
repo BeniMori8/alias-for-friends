@@ -24,6 +24,16 @@
     box-shadow: 0 0 15px 3px rgba(64, 192, 87, 0.5);
 }
 
+.benias-board-cell.is-steal {
+    background-color: #c92a2a;
+    border: 3px solid white;
+    box-shadow: 0 0 12px 2px rgba(201, 42, 42, 0.4);
+}
+
+.benias-board-cell.is-steal .benias-board-cell-text {
+    color: white;
+}
+
 .benias-board-cell-text {
     color: #c92a2a;
     /* red.7 */
