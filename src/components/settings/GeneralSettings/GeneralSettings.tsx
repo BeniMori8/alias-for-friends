@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Title, Text, NumberInput, Paper } from '@mantine/core';
+import { Stack, Title, Text, NumberInput, Paper, Switch } from '@mantine/core';
 import {
     DEFAULT_ROUND_DURATION,
     MIN_ROUND_DURATION,
@@ -16,18 +16,22 @@ interface GeneralSettingsProps {
     roundDuration: number;
     teamCount: number;
     boardSize: number;
+    stealRoundsEnabled: boolean;
     onRoundDurationChange: (value: number) => void;
     onTeamCountChange: (value: number | string) => void;
     onBoardSizeChange: (value: number) => void;
+    onStealRoundsEnabledChange: (value: boolean) => void;
 }
 
 export const GeneralSettings: React.FC<GeneralSettingsProps> = ({
     roundDuration,
     teamCount,
     boardSize,
+    stealRoundsEnabled,
     onRoundDurationChange,
     onTeamCountChange,
     onBoardSizeChange,
+    onStealRoundsEnabledChange,
 }) => {
     return (
         <Paper className="settings-card">
@@ -100,6 +104,23 @@ export const GeneralSettings: React.FC<GeneralSettingsProps> = ({
                     />
                     <Text size="xs" c="dimmed" mt="xs">
                         טווח: {MIN_BOARD_SIZE}–{MAX_BOARD_SIZE}, ברירת מחדל: {DEFAULT_BOARD_SIZE} 🎲
+                    </Text>
+                </div>
+
+                {/* Steal Rounds Toggle */}
+                <div>
+                    <Text size="sm" fw={600} mb="xs" className="settings-label">
+                        סיבובי גניבה
+                    </Text>
+                    <Switch
+                        checked={stealRoundsEnabled}
+                        onChange={(event) => onStealRoundsEnabledChange(event.currentTarget.checked)}
+                        size="md"
+                        color="#c92a2a"
+                        className="settings-switch"
+                    />
+                    <Text size="xs" c="dimmed" mt="xs">
+                        תאי גניבה מיוחדים בלוח 🎯
                     </Text>
                 </div>
             </Stack>

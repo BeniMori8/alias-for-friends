@@ -15,6 +15,7 @@ import {
     DEFAULT_BOARD_SIZE,
     MIN_BOARD_SIZE,
     MAX_BOARD_SIZE,
+    DEFAULT_STEAL_ROUNDS_ENABLED,
 } from './settings.constants';
 import { clearSessionGame } from '../../utils/sessionGame';
 import './SettingsScreen.css';
@@ -26,6 +27,7 @@ export const SettingsScreen: React.FC = () => {
     const [roundDuration, setRoundDuration] = useState<number>(DEFAULT_ROUND_DURATION);
     const [teamCount, setTeamCount] = useState<number>(MIN_TEAMS);
     const [boardSize, setBoardSize] = useState<number>(DEFAULT_BOARD_SIZE);
+    const [stealRoundsEnabled, setStealRoundsEnabled] = useState<boolean>(DEFAULT_STEAL_ROUNDS_ENABLED);
     const [teams, setTeams] = useState<TeamSettings[]>([
         { id: 1, name: 'קבוצה 1', color: PRESET_COLORS[0] },
         { id: 2, name: 'קבוצה 2', color: PRESET_COLORS[1] },
@@ -99,6 +101,7 @@ export const SettingsScreen: React.FC = () => {
         const gameSettings: GameSettings = {
             roundDurationSeconds: roundDuration,
             teams: validatedTeams,
+            stealRoundsEnabled,
         };
 
         console.log('Game Settings:', gameSettings);
@@ -111,6 +114,7 @@ export const SettingsScreen: React.FC = () => {
                 roundDurationSeconds: roundDuration,
                 teams: validatedTeams,
                 boardSize,
+                stealRoundsEnabled,
             },
         });
     };
@@ -135,9 +139,11 @@ export const SettingsScreen: React.FC = () => {
                                 roundDuration={roundDuration}
                                 teamCount={teamCount}
                                 boardSize={boardSize}
+                                stealRoundsEnabled={stealRoundsEnabled}
                                 onRoundDurationChange={setRoundDuration}
                                 onTeamCountChange={handleTeamCountChange}
                                 onBoardSizeChange={setBoardSize}
+                                onStealRoundsEnabledChange={setStealRoundsEnabled}
                             />
 
                             {/* Team Configuration */}

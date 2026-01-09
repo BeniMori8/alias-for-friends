@@ -48,3 +48,8 @@ export const MAX_TEAM_NAME_LENGTH = 20;
 export const DEFAULT_BOARD_SIZE = 64;
 export const MIN_BOARD_SIZE = 48;
 export const MAX_BOARD_SIZE = 80;
+
+// Steal Rounds settings
+export const DEFAULT_STEAL_ROUNDS_ENABLED = false;
+export const STEAL_CELL_INTERVAL = 11; // Every 11th cell is a steal cell
+export const STEAL_ROUND_CARD_COUNT = 5;

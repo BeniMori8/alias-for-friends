@@ -1,4 +1,18 @@
 /* GeneralSettings Component Styles */
 
-/* Component-specific styles will be added here as needed */
-/* Currently inherits all styles from parent SettingsScreen.css */
+/* Switch styling to match design system */
+.settings-switch {
+    margin-right: 0.25rem;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.settings-switch .mantine-Switch-label {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+}
+
+.settings-switch .mantine-Switch-track {
+    cursor: pointer;
+}
