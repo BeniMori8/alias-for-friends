@@ -1,0 +1,68 @@
+/* Steal Round View Styles */
+/* Uses design system: Fredoka font, crimson (#c92a2a), gold (#ffd700) */
+
+.steal-round-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.steal-round-progress-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 700;
+    color: #c92a2a;
+    direction: rtl;
+    /* Card-like styling */
+    background: linear-gradient(135deg, #fff9db 0%, #ffd700 50%, #ffed4e 100%);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    margin-bottom: 0.5rem;
+    border: 4px solid white;
+}
+
+.steal-round-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.steal-round-title-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+    font-weight: 700;
+    color: #c92a2a;
+    direction: rtl;
+    /* Card-like styling */
+    background: linear-gradient(135deg, #fff9db 0%, #ffd700 50%, #ffed4e 100%);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    border: 4px solid white;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        0 0 0 6px rgba(255, 215, 0, 0.3);
+}
+
+.steal-result-token {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-token-display {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Full width button for summary confirm */
+.action-button-compact.full-width {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}

@@ -7,6 +7,7 @@ interface BoardCellProps {
     value: number;
     isStart?: boolean;
     isEnd?: boolean;
+    isSteal?: boolean;
     cellSize?: number;
     style?: React.CSSProperties;
 }
@@ -15,6 +16,7 @@ export const BoardCell: React.FC<BoardCellProps> = ({
     value,
     isStart,
     isEnd,
+    isSteal,
     cellSize = DEFAULT_CELL_SIZE,
     style
 }) => {
@@ -25,7 +27,7 @@ export const BoardCell: React.FC<BoardCellProps> = ({
 
     return (
         <div
-            className={`benias-board-cell ${isStart ? 'is-start' : ''} ${isEnd ? 'is-end' : ''}`}
+            className={`benias-board-cell ${isStart ? 'is-start' : ''} ${isEnd ? 'is-end' : ''} ${isSteal ? 'is-steal' : ''}`}
             style={combinedStyle}
         >
             <span className="benias-board-cell-text">
